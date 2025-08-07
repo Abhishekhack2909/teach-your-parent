@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page.title">Book an Ola/Uber Ride - Teach your parents smartphone</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .step-instructions {
+            background-color: #e8f4fd;
+            border-left: 8px solid #0088cc;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            max-width: 700px;
+            width: 100%;
+            font-size: 20px;
+            line-height: 1.6;
+            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.1);
+        }
+        .step-instructions strong {
+            color: #0088cc;
+            font-size: 24px;
+            display: block;
+            margin-bottom: 10px;
+        }
+        body.dark-mode .step-instructions {
+            background-color: #1a365d;
+            border-left-color: #0088cc;
+        }
+        body.dark-mode .step-instructions strong {
+            color: #60a5fa;
+        }
+        .all-steps-container {
+            max-width: 700px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        .all-steps-container .step-instructions { margin-bottom: 20px; }
+        .all-steps-container .step-instructions:last-child { margin-bottom: 0; }
+        .main-flex-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+        .phone-tutorial-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 320px;
+        }
+        .progress-indicator { margin-bottom: 20px; }
+        .tutorial-controls { margin-top: 20px; }
+        @media (max-width: 900px) {
+            .main-flex-container { flex-direction: column; align-items: center; gap: 20px; }
+            .all-steps-container { max-width: 100%; min-width: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dark-mode-toggle">
+            <button id="dark-mode-toggle" class="theme-toggle-btn">
+                <span class="light-icon">☀️</span>
+                <span class="dark-icon">🌙</span>
+            </button>
+        </div>
+        <h1 data-i18n="tutorial.title">Book an Ola/Uber Ride</h1>
+        <div class="main-flex-container">
+            <div class="all-steps-container">
+                <div class="step-instructions">
+                    <strong>Step 1: Open Ola/Uber App</strong><br>
+                    Find and tap the Ola or Uber app icon on your phone's home screen. You will see a welcome screen. Tap "Continue with Phone Number" or use Google/Facebook to log in if prompted.
+                </div>
+                <div class="step-instructions">
+                    <strong>Step 2: Set Your Pickup Location</strong><br>
+                    The app will show a map with your current location. Make sure the green dot is at your pickup point. If needed, move the map or enter your pickup address.
+                </div>
+                <div class="step-instructions">
+                    <strong>Step 3: Enter Your Destination</strong><br>
+                    Tap the "Search Destination" or destination field. Type your destination (e.g., Pune Railway Station) and select it from the suggestions.
+                </div>
+                <div class="step-instructions">
+                    <strong>Step 4: Choose Your Ride</strong><br>
+                    The app will show available ride options (Auto, Mini, Prime, etc.) with estimated fares and times. Review the options and tap on the one you want to book.
+                </div>
+                <div class="step-instructions">
+                    <strong>Step 5: Confirm Pickup and Book</strong><br>
+                    Double-check your pickup and drop locations. If needed, edit the pickup point. Then tap the "Book" or "Confirm" button to request your ride. Wait for driver confirmation.
+                </div>
+            </div>
+            <div class="phone-tutorial-panel">
+                <div class="progress-indicator">
+                    <div class="progress-dot active" data-step="1" style="background-color: #0088cc; border: 2px solid #0088cc; transform: scale(1.2);"></div>
+                    <div class="progress-dot" data-step="2" style="background-color: #ddd;"></div>
+                    <div class="progress-dot" data-step="3" style="background-color: #ddd;"></div>
+                    <div class="progress-dot" data-step="4" style="background-color: #ddd;"></div>
+                    <div class="progress-dot" data-step="5" style="background-color: #ddd;"></div>
+                </div>
+                <div class="phone-container" id="phone-container">
+                    <!-- Step 1: Welcome/Login -->
+                    <div class="screen" id="welcome-screen">
+                        <img src="../images/ola-uber-tutorial/welcome.png" alt="Ola/Uber Welcome Screen" class="screenshot language-image" data-img-base="../images/ola-uber-tutorial/welcome">
+                    </div>
+                    <!-- Step 2: Map with Search -->
+                    <div class="screen hidden" id="map-screen">
+                        <img src="../images/ola-uber-tutorial/map.png" alt="Map and Search Destination" class="screenshot language-image" data-img-base="../images/ola-uber-tutorial/map">
+                    </div>
+                    <!-- Step 3: Enter Destination -->
+                    <div class="screen hidden" id="destination-screen">
+                        <img src="../images/ola-uber-tutorial/pickup.png" alt="Enter Destination" class="screenshot language-image" data-img-base="../images/ola-uber-tutorial/destination">
+                    </div>
+                    <!-- Step 4: Ride Options -->
+                    <div class="screen hidden" id="rides-screen">
+                        <img src="../images/ola-uber-tutorial/destination.png" alt="Ride Options and Fare" class="screenshot language-image" data-img-base="../images/ola-uber-tutorial/rides">
+                    </div>
+                    <!-- Step 5: Pickup Location -->
+                    <div class="screen hidden" id="pickup-screen">
+                        <img src="../images/ola-uber-tutorial/book.png" alt="Pickup Location Entry" class="screenshot language-image" data-img-base="../images/ola-uber-tutorial/pickup">
+                    </div>
+                </div>
+                <div class="tutorial-controls">
+                    <button id="prev-button" onclick="previousStep()" data-i18n="button.previous">Previous</button>
+                    <button id="next-button" onclick="nextStep()" data-i18n="button.next">Next</button>
+                    <button onclick="resetTutorial()" data-i18n="button.reset">Start Over</button>
+                </div>
+                <div class="task-complete" id="task-complete">
+                    <span data-i18n="tutorial.completion">Congratulations! You've successfully learned how to book an Ola/Uber ride.</span>
+                    <br><br>
+                    <button onclick="window.location.href='/'" class="primary-button" data-i18n="button.back">Back to Home</button>
+                    <button onclick="resetTutorial()" data-i18n="button.tryAgain">Start Over</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/localization.js"></script>
+    <script>
+        const tutorial = {
+            currentScreen: 'welcome-screen',
+            currentStep: 1,
+            totalSteps: 5
+        };
+        const prevButton = document.getElementById('prev-button');
+        const taskComplete = document.getElementById('task-complete');
+        function nextStep() {
+            if (tutorial.currentStep <= tutorial.totalSteps) {
+                tutorial.currentStep++;
+                const screens = ['welcome-screen', 'map-screen', 'destination-screen', 'rides-screen', 'pickup-screen'];
+                const targetScreen = screens[tutorial.currentStep - 1];
+                transitionToScreen(targetScreen);
+                updateProgress();
+                updateButtonStates();
+                if (tutorial.currentStep > tutorial.totalSteps) {
+                    taskComplete.style.display = 'block';
+                }
+            }
+        }
+        function previousStep() {
+            if (tutorial.currentStep > 1) {
+                tutorial.currentStep--;
+                const screens = ['welcome-screen', 'map-screen', 'destination-screen', 'rides-screen', 'pickup-screen'];
+                const targetScreen = screens[tutorial.currentStep - 1];
+                transitionToScreen(targetScreen);
+                updateProgress();
+                updateButtonStates();
+                taskComplete.style.display = 'none';
+            }
+        }
+        function resetTutorial() {
+            tutorial.currentScreen = 'welcome-screen';
+            tutorial.currentStep = 1;
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.add('hidden');
+            });
+            const welcomeScreen = document.getElementById('welcome-screen');
+            if (welcomeScreen) {
+                welcomeScreen.classList.remove('hidden');
+            }
+            updateProgress();
+            updateButtonStates();
+            taskComplete.style.display = 'none';
+        }
+        function transitionToScreen(screenId) {
+            const currentScreen = document.getElementById(tutorial.currentScreen);
+            if (currentScreen) {
+                currentScreen.classList.add('hidden');
+            }
+            const newScreen = document.getElementById(screenId);
+            if (newScreen) {
+                newScreen.classList.remove('hidden');
+                tutorial.currentScreen = screenId;
+            }
+        }
+        function updateProgress() {
+            const progressDots = document.querySelectorAll('.progress-dot');
+            progressDots.forEach((dot, index) => {
+                const stepNumber = index + 1;
+                if (stepNumber <= tutorial.currentStep) {
+                    dot.style.backgroundColor = '#0088cc';
+                    dot.style.border = '2px solid #0088cc';
+                    dot.style.transform = 'scale(1.2)';
+                    dot.style.boxShadow = '0 0 10px rgba(0, 136, 204, 0.3)';
+                    dot.classList.add('active');
+                } else {
+                    dot.style.backgroundColor = '#ddd';
+                    dot.style.border = '2px solid transparent';
+                    dot.style.transform = 'scale(1)';
+                    dot.style.boxShadow = 'none';
+                    dot.classList.remove('active');
+                }
+            });
+            progressDots.forEach(dot => dot.offsetHeight);
+        }
+        function updateButtonStates() {
+            prevButton.disabled = tutorial.currentStep === 1;
+            const nextButton = document.getElementById('next-button');
+            if (nextButton) {
+                nextButton.disabled = taskComplete.style.display === 'block';
+            }
+        }
+        function initTutorial() {
+            updateProgress();
+            updateButtonStates();
+        }
+        window.onload = initTutorial;
+    </script>
+    <script>
+        // Dark mode functionality
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+        }
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        });
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('theme')) {
+            body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark');
+        }
+    </script>
+</body>
+</html>

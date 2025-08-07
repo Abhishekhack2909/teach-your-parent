@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page.title">Book Train Tickets - Teach your parents smartphone</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .step-instructions {
+            background-color: #e8f4fd;
+            border-left: 8px solid #ff6b35;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            max-width: 700px;
+            width: 100%;
+            font-size: 20px;
+            line-height: 1.6;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.1);
+        }
+        .step-instructions strong {
+            color: #ff6b35;
+            font-size: 24px;
+            display: block;
+            margin-bottom: 10px;
+        }
+        body.dark-mode .step-instructions {
+            background-color: #1a365d;
+            border-left-color: #ff6b35;
+        }
+        body.dark-mode .step-instructions strong {
+            color: #ff8a65;
+        }
+        .all-steps-container {
+            max-width: 700px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        .all-steps-container .step-instructions { margin-bottom: 20px; }
+        .all-steps-container .step-instructions:last-child { margin-bottom: 0; }
+        .main-flex-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+        .phone-tutorial-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 320px;
+        }
+        .progress-indicator { margin-bottom: 20px; }
+        .tutorial-controls { margin-top: 20px; }
+        @media (max-width: 900px) {
+            .main-flex-container { flex-direction: column; align-items: center; gap: 20px; }
+            .all-steps-container { max-width: 100%; min-width: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dark-mode-toggle">
+            <button id="dark-mode-toggle" class="theme-toggle-btn">
+                <span class="light-icon">☀️</span>
+                <span class="dark-icon">🌙</span>
+            </button>
+        </div>
+        <h1 data-i18n="tutorial.title">Book Train Tickets</h1>
+        <div class="main-flex-container">
+            <div class="all-steps-container">
+                <div class="step-instructions">
+                    <strong>Step 1: Open IRCTC App</strong><br>
+                    Find and tap the "IRCTC Rail Connect" app icon on your phone's home screen. You will see the main dashboard with various service icons. Look for the "Book Ticket" icon (blue train icon) and tap it.
+                </div>
+                <div class="step-instructions">
+                    <strong>Step 2: Search for Trains</strong><br>
+                    On the train search screen, enter your journey details. Select "From" station (e.g., HWH for Howrah), "To" station (e.g., PNBE for Patna), choose your travel class and quota, then select your departure date. Tap "SEARCH TRAINS" to find available trains.
+                </div>
+                <div class="step-instructions">
+                    <strong>Step 3: Select Your Train</strong><br>
+                    Review the list of available trains showing departure/arrival times, journey duration, and seat availability. Choose your preferred train by tapping on it. Check the available classes (SL, 3A, 2A, etc.) and select the one you want.
+                </div>
+                <div class="step-instructions">
+                    <strong>Step 4: Add Passenger Details</strong><br>
+                    Enter passenger information including name, age, gender, nationality, and berth preference. You can add multiple passengers using the "+ Add New" option. Fill in all required fields for each passenger and tap "Continue".
+                </div>
+                <div class="step-instructions">
+                    <strong>Step 5: Complete Payment</strong><br>
+                    Review your journey details and passenger information. Enter the CAPTCHA code shown on screen. Choose your payment method (Credit/Debit cards, Net Banking, Wallets). Tap "Proceed to Pay" to complete your booking. Wait for confirmation.
+                </div>
+            </div>
+            <div class="phone-tutorial-panel">
+                <div class="progress-indicator">
+                    <div class="progress-dot active" data-step="1" style="background-color: #ff6b35; border: 2px solid #ff6b35; transform: scale(1.2);"></div>
+                    <div class="progress-dot" data-step="2" style="background-color: #ddd;"></div>
+                    <div class="progress-dot" data-step="3" style="background-color: #ddd;"></div>
+                    <div class="progress-dot" data-step="4" style="background-color: #ddd;"></div>
+                    <div class="progress-dot" data-step="5" style="background-color: #ddd;"></div>
+                </div>
+                <div class="phone-container" id="phone-container">
+                    <!-- Step 1: IRCTC Home Screen -->
+                    <div class="screen" id="home-screen">
+                        <img src="../images/train-tutorial/home.png" alt="IRCTC Home Screen" class="screenshot language-image" data-img-base="../images/train-tutorial/home">
+                    </div>
+                    <!-- Step 2: Train Search -->
+                    <div class="screen hidden" id="search-screen">
+                        <img src="../images/train-tutorial/train.png" alt="Train Search Screen" class="screenshot language-image" data-img-base="../images/train-tutorial/search">
+                    </div>
+                    <!-- Step 3: Train Results -->
+                    <div class="screen hidden" id="results-screen">
+                        <img src="../images/train-tutorial/fromtowhere.png" alt="Train Search Results" class="screenshot language-image" data-img-base="../images/train-tutorial/results">
+                    </div>
+                    <!-- Step 4: Passenger Details -->
+                    <div class="screen hidden" id="passenger-screen">
+                        <img src="../images/train-tutorial/passenger.png" alt="Passenger Details Entry" class="screenshot language-image" data-img-base="../images/train-tutorial/passenger">
+                    </div>
+                    <!-- Step 5: Payment -->
+                    <div class="screen hidden" id="payment-screen">
+                        <img src="../images/train-tutorial/pay.png" alt="Payment Confirmation" class="screenshot language-image" data-img-base="../images/train-tutorial/payment">
+                    </div>
+                </div>
+                <div class="tutorial-controls">
+                    <button id="prev-button" onclick="previousStep()" data-i18n="button.previous">Previous</button>
+                    <button id="next-button" onclick="nextStep()" data-i18n="button.next">Next</button>
+                    <button onclick="resetTutorial()" data-i18n="button.reset">Start Over</button>
+                </div>
+                <div class="task-complete" id="task-complete">
+                    <span data-i18n="tutorial.completion">Congratulations! You've successfully learned how to book train tickets using the IRCTC app.</span>
+                    <br><br>
+                    <button onclick="window.location.href='/'" class="primary-button" data-i18n="button.back">Back to Home</button>
+                    <button onclick="resetTutorial()" data-i18n="button.tryAgain">Start Over</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/localization.js"></script>
+    <script>
+        const tutorial = {
+            currentScreen: 'home-screen',
+            currentStep: 1,
+            totalSteps: 5
+        };
+        const prevButton = document.getElementById('prev-button');
+        const taskComplete = document.getElementById('task-complete');
+        function nextStep() {
+            if (tutorial.currentStep <= tutorial.totalSteps) {
+                tutorial.currentStep++;
+                const screens = ['home-screen', 'search-screen', 'results-screen', 'passenger-screen', 'payment-screen'];
+                const targetScreen = screens[tutorial.currentStep - 1];
+                transitionToScreen(targetScreen);
+                updateProgress();
+                updateButtonStates();
+                if (tutorial.currentStep > tutorial.totalSteps) {
+                    taskComplete.style.display = 'block';
+                }
+            }
+        }
+        function previousStep() {
+            if (tutorial.currentStep > 1) {
+                tutorial.currentStep--;
+                const screens = ['home-screen', 'search-screen', 'results-screen', 'passenger-screen', 'payment-screen'];
+                const targetScreen = screens[tutorial.currentStep - 1];
+                transitionToScreen(targetScreen);
+                updateProgress();
+                updateButtonStates();
+                taskComplete.style.display = 'none';
+            }
+        }
+        function resetTutorial() {
+            tutorial.currentScreen = 'home-screen';
+            tutorial.currentStep = 1;
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.add('hidden');
+            });
+            const homeScreen = document.getElementById('home-screen');
+            if (homeScreen) {
+                homeScreen.classList.remove('hidden');
+            }
+            updateProgress();
+            updateButtonStates();
+            taskComplete.style.display = 'none';
+        }
+        function transitionToScreen(screenId) {
+            const currentScreen = document.getElementById(tutorial.currentScreen);
+            if (currentScreen) {
+                currentScreen.classList.add('hidden');
+            }
+            const newScreen = document.getElementById(screenId);
+            if (newScreen) {
+                newScreen.classList.remove('hidden');
+                tutorial.currentScreen = screenId;
+            }
+        }
+        function updateProgress() {
+            const progressDots = document.querySelectorAll('.progress-dot');
+            progressDots.forEach((dot, index) => {
+                const stepNumber = index + 1;
+                if (stepNumber <= tutorial.currentStep) {
+                    dot.style.backgroundColor = '#ff6b35';
+                    dot.style.border = '2px solid #ff6b35';
+                    dot.style.transform = 'scale(1.2)';
+                    dot.style.boxShadow = '0 0 10px rgba(255, 107, 53, 0.3)';
+                    dot.classList.add('active');
+                } else {
+                    dot.style.backgroundColor = '#ddd';
+                    dot.style.border = '2px solid transparent';
+                    dot.style.transform = 'scale(1)';
+                    dot.style.boxShadow = 'none';
+                    dot.classList.remove('active');
+                }
+            });
+            progressDots.forEach(dot => dot.offsetHeight);
+        }
+        function updateButtonStates() {
+            prevButton.disabled = tutorial.currentStep === 1;
+            const nextButton = document.getElementById('next-button');
+            if (nextButton) {
+                nextButton.disabled = taskComplete.style.display === 'block';
+            }
+        }
+        function initTutorial() {
+            updateProgress();
+            updateButtonStates();
+        }
+        window.onload = initTutorial;
+    </script>
+    <script>
+        // Dark mode functionality
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+        }
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        });
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('theme')) {
+            body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page.title">Google Maps Navigation Tutorial - Teach your parents smartphone</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        /* Removed clickable areas - using text-only instructions */
+
+        .feedback {
+            position: absolute;
+            background-color: var(--success);
+            color: white;
+            padding: 5%;
+            border-radius: 10px;
+            font-size: 16px;
+            width: 70%;
+            left: 15%;
+            /* Center horizontally */
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 20;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .step-instructions {
+            background-color: #e8f4fd;
+            border-left: 8px solid #4285F4;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            max-width: 700px;
+            width: 100%;
+            font-size: 20px;
+            line-height: 1.6;
+            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.1);
+        }
+
+        .step-instructions strong {
+            color: #1a73e8;
+            font-size: 24px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Dark mode styles for Google Maps tutorial */
+        body.dark-mode .step-instructions {
+            background-color: #1a365d;
+            border-left-color: #4285F4;
+        }
+
+        body.dark-mode .step-instructions strong {
+            color: #60a5fa;
+        }
+        
+        .all-steps-container {
+            max-width: 700px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        
+        .all-steps-container .step-instructions {
+            margin-bottom: 20px;
+        }
+        
+        .all-steps-container .step-instructions:last-child {
+            margin-bottom: 0;
+        }
+        .main-flex-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+        .phone-tutorial-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 320px;
+        }
+        .progress-indicator {
+            margin-bottom: 20px;
+        }
+        .tutorial-controls {
+            margin-top: 20px;
+        }
+        @media (max-width: 900px) {
+            .main-flex-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .all-steps-container {
+                max-width: 100%;
+                min-width: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Dark mode toggle -->
+        <div class="dark-mode-toggle">
+            <button id="dark-mode-toggle" class="theme-toggle-btn">
+                <span class="light-icon">☀️</span>
+                <span class="dark-icon">🌙</span>
+            </button>
+        </div>
+
+        <h1 data-i18n="tutorial.title">Navigate with Google Maps</h1>
+
+        <!-- Main flex container for side-by-side layout -->
+        <div class="main-flex-container">
+            <!-- Left side: All step instructions -->
+            <div class="all-steps-container">
+                <div class="step-instructions">
+                    <strong>Step 1: Open Search Bar</strong><br>
+                    Look at the top of the Google Maps screen. You will see a white search bar with the text "Search here" in the center. This search bar has a Google Maps pin icon on the left side. Tap on this search bar to open the search interface where you can type the name of the place you want to find.
+                </div>
+                
+                <div class="step-instructions">
+                    <strong>Step 2: Select Triveni Ghat</strong><br>
+                    Now you can see the search results. Look for the first recommendation that says "Triveni Ghat" in the list. This will be the main result for Triveni Ghat in Rishikesh, Uttarakhand. Tap on this result to view the location details and information about this place.
+                </div>
+                
+                <div class="step-instructions">
+                    <strong>Step 3: Get Directions</strong><br>
+                    You can see the location details for Triveni Ghat. Look for a blue button that says "Directions" with a compass or arrow icon. This button is usually located in the middle section of the screen. Tap on this blue "Directions" button to get route options to reach this place.
+                </div>
+                
+                <div class="step-instructions">
+                    <strong>Step 4: Start Navigation</strong><br>
+                    Google Maps is showing you the route options. Look for a large green button that says "Start" with a play icon. This button is usually located at the bottom left of the screen. Tap this green "Start" button to begin turn-by-turn navigation to Triveni Ghat.
+                </div>
+            </div>
+
+            <!-- Right side: Phone screen and controls -->
+            <div class="phone-tutorial-panel">
+                <div class="progress-indicator">
+                    <div class="progress-dot active" data-step="1" style="background-color: #5f259f; border: 2px solid #5f259f; transform: scale(1.2);"></div>
+                    <div class="progress-dot" data-step="2" style="background-color: #ddd;"></div>
+                    <div class="progress-dot" data-step="3" style="background-color: #ddd;"></div>
+                    <div class="progress-dot" data-step="4" style="background-color: #ddd;"></div>
+                </div>
+
+                <div class="phone-container" id="phone-container">
+                    <!-- Home Screen -->
+                    <div class="screen" id="home-screen">
+                        <img src="../images/google-tutorial/home.jpg" alt="Google Maps Home Screen"
+                            class="screenshot language-image" data-img-base="../images/google-tutorial/home">
+                    </div>
+
+                    <!-- Location Details Screen -->
+                    <div class="screen hidden" id="location-screen">
+                        <img src="../images/google-tutorial/location.jpg" alt="Google Maps Location Details"
+                            class="screenshot language-image" data-img-base="../images/google-tutorial/location">
+                    </div>
+
+                    <!-- Directions Screen -->
+                    <div class="screen hidden" id="direction-screen">
+                        <img src="../images/google-tutorial/direction.jpg" alt="Google Maps Directions Screen"
+                            class="screenshot language-image" data-img-base="../images/google-tutorial/direction">
+                    </div>
+
+                    <!-- Completion Screen -->
+                    <div class="screen hidden" id="completion-screen">
+                        <img src="../images/google-tutorial/start.jpg" alt="Google Maps Navigation Started"
+                            class="screenshot language-image" data-img-base="../images/google-tutorial/start">
+                    </div>
+                </div>
+
+                <!-- Tutorial Controls -->
+                <div class="tutorial-controls">
+                    <button id="prev-button" onclick="previousStep()" data-i18n="button.previous">Previous</button>
+                    <button id="next-button" onclick="nextStep()" data-i18n="button.next">Next</button>
+                    <button onclick="resetTutorial()" data-i18n="button.reset">Start Over</button>
+                </div>
+
+                <div class="task-complete" id="task-complete">
+                    <span data-i18n="tutorial.completion">Congratulations! You've successfully learned how to navigate using Google Maps.</span>
+                    <br><br>
+                    <button onclick="window.location.href='/'" class="primary-button" data-i18n="button.back">Back to Home</button>
+                    <button onclick="resetTutorial()" data-i18n="button.tryAgain">Start Over</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/localization.js"></script>
+
+    <script>
+        // Tutorial state management
+        const tutorial = {
+            currentScreen: 'home-screen',
+            currentStep: 1,
+            totalSteps: 4,
+            instructions: {},
+            expectedActions: {
+                'home-screen': 'search-bar',
+                'location-screen': 'triveni-ghat-result',
+                'direction-screen': 'directions-button',
+                'completion-screen': 'start-navigation'
+            }
+        };
+
+        // DOM elements
+        const progressDots = document.querySelectorAll('.progress-dot');
+        const prevButton = document.getElementById('prev-button');
+        const taskComplete = document.getElementById('task-complete');
+
+        // Next step function
+        function nextStep() {
+            if (tutorial.currentStep <= tutorial.totalSteps) {
+                tutorial.currentStep++;
+                const screens = ['home-screen', 'location-screen', 'direction-screen', 'completion-screen'];
+                const targetScreen = screens[tutorial.currentStep - 1];
+                
+                transitionToScreen(targetScreen);
+                updateProgress();
+                updateButtonStates();
+                
+                // Show completion message when we reach the last step
+                if (tutorial.currentStep > tutorial.totalSteps) {
+                    taskComplete.style.display = 'block';
+                }
+            }
+        }
+
+        // Transition between screens
+        function transitionToScreen(screenId) {
+            // Hide current screen
+            const currentScreen = document.getElementById(tutorial.currentScreen);
+            if (currentScreen) {
+                currentScreen.classList.add('hidden');
+            }
+
+            // Show new screen
+            const newScreen = document.getElementById(screenId);
+            if (newScreen) {
+                newScreen.classList.remove('hidden');
+                tutorial.currentScreen = screenId;
+            }
+        }
+
+        // Update progress indicator
+        function updateProgress() {
+            const progressDots = document.querySelectorAll('.progress-dot');
+            console.log('Updating progress - Current step:', tutorial.currentStep);
+            console.log('Found dots:', progressDots.length);
+            
+            progressDots.forEach((dot, index) => {
+                const stepNumber = index + 1;
+                if (stepNumber <= tutorial.currentStep) {
+                    // Use inline styles to ensure visibility
+                    dot.style.backgroundColor = '#5f259f';
+                    dot.style.border = '2px solid #5f259f';
+                    dot.style.transform = 'scale(1.2)';
+                    dot.style.boxShadow = '0 0 10px rgba(95, 37, 159, 0.3)';
+                    dot.classList.add('active');
+                    console.log(`Dot ${stepNumber}: ACTIVE - Purple`);
+                } else {
+                    // Reset to inactive state
+                    dot.style.backgroundColor = '#ddd';
+                    dot.style.border = '2px solid transparent';
+                    dot.style.transform = 'scale(1)';
+                    dot.style.boxShadow = 'none';
+                    dot.classList.remove('active');
+                    console.log(`Dot ${stepNumber}: inactive - Gray`);
+                }
+            });
+            
+            // Force a repaint
+            progressDots.forEach(dot => dot.offsetHeight);
+        }
+
+
+
+        // Previous step function
+        function previousStep() {
+            if (tutorial.currentStep > 1) {
+                tutorial.currentStep--;
+                const screens = ['home-screen', 'location-screen', 'direction-screen', 'completion-screen'];
+                const targetScreen = screens[tutorial.currentStep - 1];
+                
+                transitionToScreen(targetScreen);
+                updateProgress();
+                updateButtonStates();
+                taskComplete.style.display = 'none';
+            }
+        }
+
+        // Reset the tutorial to the beginning
+        function resetTutorial() {
+            // Reset tutorial state
+            tutorial.currentScreen = 'home-screen';
+            tutorial.currentStep = 1;
+
+            // Hide all screens first
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.add('hidden');
+            });
+
+            // Show the home screen
+            const homeScreen = document.getElementById('home-screen');
+            if (homeScreen) {
+                homeScreen.classList.remove('hidden');
+            }
+
+            // Reset progress
+            updateProgress();
+            updateButtonStates();
+
+            // Hide completion message
+            taskComplete.style.display = 'none';
+        }
+
+        // Update the state of the navigation buttons
+        function updateButtonStates() {
+            prevButton.disabled = tutorial.currentStep === 1;
+            const nextButton = document.getElementById('next-button');
+            if (nextButton) {
+                // Disable next button when tutorial is complete
+                nextButton.disabled = taskComplete.style.display === 'block';
+            }
+        }
+
+        // Initialize the tutorial
+        function initTutorial() {
+            updateProgress();
+            updateButtonStates();
+        }
+
+        // Start the tutorial when the page loads
+        window.onload = initTutorial;
+    </script>
+
+    <!-- Dark mode functionality -->
+    <script>
+        // Dark mode functionality
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        
+        // Apply the saved theme on page load
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+        }
+        
+        // Toggle dark mode
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            // Save the current theme preference
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        });
+        
+        // Check system preference for dark mode
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('theme')) {
+            body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark');
+        }
+    </script>
+</body>
+
+</html> 

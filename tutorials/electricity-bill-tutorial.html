@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page.title">Electricity Bill Payment Tutorial - Teach your parents smartphone</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        /* Electricity Bill Tutorial specific styles */
+
+        .feedback {
+            position: absolute;
+            background-color: var(--success);
+            color: white;
+            padding: 5%;
+            border-radius: 10px;
+            font-size: 16px;
+            width: 70%;
+            left: 15%;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 20;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .step-instructions {
+            background-color: #e8f4fd;
+            border-left: 8px solid #4285F4;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            max-width: 700px;
+            width: 100%;
+            font-size: 20px;
+            line-height: 1.6;
+            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.1);
+        }
+
+        .step-instructions strong {
+            color: #1a73e8;
+            font-size: 24px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Dark mode styles for Electricity Bill tutorial */
+        body.dark-mode .step-instructions {
+            background-color: #1a365d;
+            border-left-color: #4285F4;
+        }
+
+        body.dark-mode .step-instructions strong {
+            color: #60a5fa;
+        }
+        
+        .all-steps-container {
+            max-width: 700px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        
+        .all-steps-container .step-instructions {
+            margin-bottom: 20px;
+        }
+        
+        .all-steps-container .step-instructions:last-child {
+            margin-bottom: 0;
+        }
+        
+        .main-flex-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+        
+        .phone-tutorial-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 320px;
+        }
+        
+        .progress-indicator {
+            margin-bottom: 20px;
+        }
+        
+        .tutorial-controls {
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 900px) {
+            .main-flex-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            .all-steps-container {
+                max-width: 100%;
+                min-width: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Dark mode toggle -->
+        <div class="dark-mode-toggle">
+            <button id="dark-mode-toggle" class="theme-toggle-btn">
+                <span class="light-icon">☀️</span>
+                <span class="dark-icon">🌙</span>
+            </button>
+        </div>
+
+        <h1 data-i18n="tutorial.title">Pay Your Electricity Bill</h1>
+
+        <!-- Main flex container for side-by-side layout -->
+        <div class="main-flex-container">
+            <!-- Left side: All step instructions -->
+            <div class="all-steps-container">
+                <div class="step-instructions">
+                    <strong>Step 1: Open Paytm App</strong><br>
+                    Look at your phone's home screen and find the Paytm app icon. It's usually a blue app with the Paytm logo. Tap on this icon to open the Paytm application. You'll see the main Paytm screen with your balance and various payment options.
+                </div>
+                
+                <div class="step-instructions">
+                    <strong>Step 2: Select State</strong><br>
+                    On the electricity bill payment screen, you'll see a "State" field. Tap on this field and select your state from the dropdown list. For example, if you're in Maharashtra, select "Maharashtra" from the options.
+                </div>
+                
+                <div class="step-instructions">
+                    <strong>Step 3: Select Electricity Board</strong><br>
+                    After selecting the state, tap on the "Electricity Board" field. Choose your electricity board from the list. For example, select "Mahavitran-MSEDCL" if you're in Maharashtra. This will show the available boards for your selected state.
+                </div>
+                
+                <div class="step-instructions">
+                    <strong>Step 4: Select Subdivision</strong><br>
+                    Next, you'll see a "Sub Division/ERO/BU" field. Tap on this field and select your subdivision from the dropdown. The system will show subdivisions based on your selected electricity board. Choose the one that matches your area.
+                </div>
+                
+                <div class="step-instructions">
+                    <strong>Step 5: Enter Consumer Number</strong><br>
+                    In the "Consumer Number" field, enter your electricity bill consumer number. This number is printed on your electricity bill. If you're not sure about the format, you can tap "View sample bill" to see an example of how the number should look.
+                </div>
+                
+                <div class="step-instructions">
+                    <strong>Step 6: View Sample Bill</strong><br>
+                    If you're unsure about your consumer number format, tap the "View sample bill" link next to the consumer number field. This will show you an example of how a typical electricity bill looks and where to find your consumer number.
+                </div>
+                
+                <div class="step-instructions">
+                    <strong>Step 7: Review and Pay</strong><br>
+                    After entering your consumer number, tap the blue "Get Bill" button. The system will show your bill details including the amount due, due date, and any incentives. Review the information carefully, then tap the blue "Proceed To Pay" button to complete your electricity bill payment.
+                </div>
+            </div>
+
+            <!-- Right side: Phone screen and controls -->
+            <div class="phone-tutorial-panel">
+                <div class="progress-indicator">
+                    <div class="progress-dot active" data-step="1" style="background-color: #5f259f; border: 2px solid #5f259f; transform: scale(1.2);"></div>
+                    <div class="progress-dot" data-step="2" style="background-color: #ddd;"></div>
+                    <div class="progress-dot" data-step="3" style="background-color: #ddd;"></div>
+                    <div class="progress-dot" data-step="4" style="background-color: #ddd;"></div>
+                    <div class="progress-dot" data-step="5" style="background-color: #ddd;"></div>
+                    <div class="progress-dot" data-step="6" style="background-color: #ddd;"></div>
+                    <div class="progress-dot" data-step="7" style="background-color: #ddd;"></div>
+                </div>
+
+                <div class="phone-container" id="phone-container">
+                    <!-- Paytm Home Screen -->
+                    <div class="screen" id="home-screen">
+                        <img src="../images/electricity-tutorial/home.png" alt="Paytm Home Screen"
+                            class="screenshot language-image" data-img-base="../images/electricity-tutorial/home">
+                    </div>
+
+                    <!-- State Selection Screen -->
+                    <div class="screen hidden" id="state-screen">
+                        <img src="../images/electricity-tutorial/state.png" alt="State Selection"
+                            class="screenshot language-image" data-img-base="../images/electricity-tutorial/state">
+                    </div>
+
+                    <!-- Board Selection Screen -->
+                    <div class="screen hidden" id="board-screen">
+                        <img src="../images/electricity-tutorial/board.png" alt="Board Selection"
+                            class="screenshot language-image" data-img-base="../images/electricity-tutorial/board">
+                    </div>
+
+                    <!-- Subdivision Selection Screen -->
+                    <div class="screen hidden" id="subdivision-screen">
+                        <img src="../images/electricity-tutorial/sub_division.png" alt="Subdivision Selection"
+                            class="screenshot language-image" data-img-base="../images/electricity-tutorial/subdivision">
+                    </div>
+
+                    <!-- Consumer Name Screen -->
+                    <div class="screen hidden" id="consumer-name-screen">
+                        <img src="../images/electricity-tutorial/consumer_name.png" alt="Consumer Name Entry"
+                            class="screenshot language-image" data-img-base="../images/electricity-tutorial/consumer_name">
+                    </div>
+
+                    <!-- View Sample Bill Screen -->
+                    <div class="screen hidden" id="sample-bill-screen">
+                        <img src="../images/electricity-tutorial/view.png" alt="View Sample Bill"
+                            class="screenshot language-image" data-img-base="../images/electricity-tutorial/viewsamplebill">
+                    </div>
+
+                    <!-- Payment Screen -->
+                    <div class="screen hidden" id="payment-screen">
+                        <img src="../images/electricity-tutorial/pay.png" alt="Payment Screen"
+                            class="screenshot language-image" data-img-base="../images/electricity-tutorial/pay">
+                    </div>
+                </div>
+
+                <!-- Tutorial Controls -->
+                <div class="tutorial-controls">
+                    <button id="prev-button" onclick="previousStep()" data-i18n="button.previous">Previous</button>
+                    <button id="next-button" onclick="nextStep()" data-i18n="button.next">Next</button>
+                    <button onclick="resetTutorial()" data-i18n="button.reset">Start Over</button>
+                </div>
+
+                <div class="task-complete" id="task-complete">
+                    <span data-i18n="tutorial.completion">Congratulations! You've successfully learned how to pay your electricity bill using Paytm.</span>
+                    <br><br>
+                    <button onclick="window.location.href='/'" class="primary-button" data-i18n="button.back">Back to Home</button>
+                    <button onclick="resetTutorial()" data-i18n="button.tryAgain">Start Over</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/localization.js"></script>
+
+    <script>
+        // Tutorial state management
+        const tutorial = {
+            currentScreen: 'home-screen',
+            currentStep: 1,
+            totalSteps: 7,
+            instructions: {},
+            expectedActions: {
+                'home-screen': 'paytm-app',
+                'state-screen': 'state-selection',
+                'board-screen': 'board-selection',
+                'subdivision-screen': 'subdivision-selection',
+                'consumer-name-screen': 'consumer-name',
+                'sample-bill-screen': 'sample-bill',
+                'payment-screen': 'proceed-payment'
+            }
+        };
+
+        // DOM elements
+        const progressDots = document.querySelectorAll('.progress-dot');
+        const prevButton = document.getElementById('prev-button');
+        const taskComplete = document.getElementById('task-complete');
+
+        // Next step function
+        function nextStep() {
+            if (tutorial.currentStep <= tutorial.totalSteps) {
+                tutorial.currentStep++;
+                const screens = ['home-screen', 'state-screen', 'board-screen', 'subdivision-screen', 'consumer-name-screen', 'sample-bill-screen', 'payment-screen'];
+                const targetScreen = screens[tutorial.currentStep - 1];
+                
+                transitionToScreen(targetScreen);
+                updateProgress();
+                updateButtonStates();
+                
+                // Show completion message when we reach the last step
+                if (tutorial.currentStep > tutorial.totalSteps) {
+                    taskComplete.style.display = 'block';
+                }
+            }
+        }
+
+        // Transition between screens
+        function transitionToScreen(screenId) {
+            // Hide current screen
+            const currentScreen = document.getElementById(tutorial.currentScreen);
+            if (currentScreen) {
+                currentScreen.classList.add('hidden');
+            }
+
+            // Show new screen
+            const newScreen = document.getElementById(screenId);
+            if (newScreen) {
+                newScreen.classList.remove('hidden');
+                tutorial.currentScreen = screenId;
+            }
+        }
+
+        // Update progress indicator
+        function updateProgress() {
+            const progressDots = document.querySelectorAll('.progress-dot');
+            console.log('Updating progress - Current step:', tutorial.currentStep);
+            console.log('Found dots:', progressDots.length);
+            
+            progressDots.forEach((dot, index) => {
+                const stepNumber = index + 1;
+                if (stepNumber <= tutorial.currentStep) {
+                    // Use inline styles to ensure visibility
+                    dot.style.backgroundColor = '#5f259f';
+                    dot.style.border = '2px solid #5f259f';
+                    dot.style.transform = 'scale(1.2)';
+                    dot.style.boxShadow = '0 0 10px rgba(95, 37, 159, 0.3)';
+                    dot.classList.add('active');
+                    console.log(`Dot ${stepNumber}: ACTIVE - Purple`);
+                } else {
+                    // Reset to inactive state
+                    dot.style.backgroundColor = '#ddd';
+                    dot.style.border = '2px solid transparent';
+                    dot.style.transform = 'scale(1)';
+                    dot.style.boxShadow = 'none';
+                    dot.classList.remove('active');
+                    console.log(`Dot ${stepNumber}: inactive - Gray`);
+                }
+            });
+            
+            // Force a repaint
+            progressDots.forEach(dot => dot.offsetHeight);
+        }
+
+        // Previous step function
+        function previousStep() {
+            if (tutorial.currentStep > 1) {
+                tutorial.currentStep--;
+                const screens = ['home-screen', 'state-screen', 'board-screen', 'subdivision-screen', 'consumer-name-screen', 'sample-bill-screen', 'payment-screen'];
+                const targetScreen = screens[tutorial.currentStep - 1];
+                
+                transitionToScreen(targetScreen);
+                updateProgress();
+                updateButtonStates();
+                taskComplete.style.display = 'none';
+            }
+        }
+
+        // Reset the tutorial to the beginning
+        function resetTutorial() {
+            // Reset tutorial state
+            tutorial.currentScreen = 'home-screen';
+            tutorial.currentStep = 1;
+
+            // Hide all screens first
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.add('hidden');
+            });
+
+            // Show the home screen
+            const homeScreen = document.getElementById('home-screen');
+            if (homeScreen) {
+                homeScreen.classList.remove('hidden');
+            }
+
+            // Reset progress
+            updateProgress();
+            updateButtonStates();
+
+            // Hide completion message
+            taskComplete.style.display = 'none';
+        }
+
+        // Update the state of the navigation buttons
+        function updateButtonStates() {
+            prevButton.disabled = tutorial.currentStep === 1;
+            const nextButton = document.getElementById('next-button');
+            if (nextButton) {
+                // Disable next button when tutorial is complete
+                nextButton.disabled = taskComplete.style.display === 'block';
+            }
+        }
+
+        // Initialize the tutorial
+        function initTutorial() {
+            updateProgress();
+            updateButtonStates();
+        }
+
+        // Start the tutorial when the page loads
+        window.onload = initTutorial;
+    </script>
+
+    <!-- Dark mode functionality -->
+    <script>
+        // Dark mode functionality
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        
+        // Apply the saved theme on page load
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+        }
+        
+        // Toggle dark mode
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            // Save the current theme preference
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        });
+        
+        // Check system preference for dark mode
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('theme')) {
+            body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark');
+        }
+    </script>
+</body>
+
+</html>
