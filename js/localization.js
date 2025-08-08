@@ -124,6 +124,114 @@ const TRANSLATIONS = {
 
             "completion.success": "Call Completed!",
             "completion.message": "You've successfully made a WhatsApp video call"
+        },
+
+        // Electricity Bill tutorial translations
+        "electricity-bill-tutorial": {
+            "page.title": "Electricity Bill Payment Tutorial - Teach your parents smartphone",
+
+            "tutorial.title": "Paying Electricity Bill",
+            "tutorial.completion": "Congratulations! You've successfully learned how to pay electricity bills.",
+
+            "step1.instruction": "<strong>Step 1:</strong> This is the Paytm home screen. To pay an electricity bill, tap on the \"Electricity\" option.",
+            "step2.instruction": "<strong>Step 2:</strong> Select your state. For example, choose \"Maharashtra\".",
+            "step3.instruction": "<strong>Step 3:</strong> Choose your electricity board. For example, select \"Mahavitran-MSEDCL\".",
+            "step4.instruction": "<strong>Step 4:</strong> Select your sub-division or ERO/BU.",
+            "step5.instruction": "<strong>Step 5:</strong> Enter your consumer number and tap \"Pay\".",
+
+            "feedback.board": "Great! You've selected the electricity option.",
+            "feedback.state": "Good job! State selected.",
+            "feedback.subdivision": "Excellent! Board selected.",
+            "feedback.consumer": "Good! Sub-division selected.",
+            "feedback.pay": "Awesome! Your bill payment will now proceed.",
+
+            "completion.success": "Payment Successful!",
+            "completion.message": "Electricity bill payment completed"
+        },
+
+        // Google Maps tutorial translations
+        "google-maps-tutorial": {
+            "page.title": "Google Maps Navigation Tutorial - Teach your parents smartphone",
+
+            "tutorial.title": "Navigating with Google Maps",
+            "tutorial.completion": "Congratulations! You've successfully learned how to navigate using Google Maps.",
+
+            "step1.instruction": "<strong>Step 1:</strong> This is the Google Maps home screen. To search for a location, type \"Triveni Ghat\" in the search bar at the top.",
+            "step2.instruction": "<strong>Step 2:</strong> From the search results, tap on \"Triveni Ghat\".",
+            "step3.instruction": "<strong>Step 3:</strong> After viewing the location details, tap on the \"Directions\" button.",
+            "step4.instruction": "<strong>Step 4:</strong> View the route options and tap \"Start\".",
+            "step5.instruction": "<strong>Step 5:</strong> Navigation has started! Now you can follow the directions.",
+
+            "feedback.home": "Great! You've searched for the location.",
+            "feedback.location": "Good job! Location found.",
+            "feedback.direction": "Excellent! Directions found.",
+            "feedback.start": "Awesome! Navigation started.",
+
+            "completion.success": "Navigation Started!",
+            "completion.message": "Google Maps navigation successfully started"
+        },
+
+        // Ola-Uber tutorial translations
+        "ola-uber-tutorial": {
+            "page.title": "Ola/Uber Ride Booking Tutorial - Teach your parents smartphone",
+
+            "tutorial.title": "Booking an Ola/Uber Ride",
+            "tutorial.completion": "Congratulations! You've successfully learned how to book an Ola/Uber ride.",
+
+            "step1.instruction": "<strong>Step 1:</strong> This is the Ola app welcome screen. To book a ride, tap on \"Book Ride\".",
+            "step2.instruction": "<strong>Step 2:</strong> Choose your pickup location. Set your current position on the map.",
+            "step3.instruction": "<strong>Step 3:</strong> Enter your destination location. Type in the \"Where to go\" box.",
+            "step4.instruction": "<strong>Step 4:</strong> Choose the cab type (Mini, Prime, etc.) and tap \"Book\".",
+            "step5.instruction": "<strong>Step 5:</strong> Booking complete! You can track your driver.",
+
+            "feedback.welcome": "Great! Ride booking started.",
+            "feedback.pickup": "Good job! Pickup location set.",
+            "feedback.destination": "Excellent! Destination set.",
+            "feedback.book": "Awesome! Ride booked.",
+
+            "completion.success": "Ride Booked!",
+            "completion.message": "Your Ola/Uber ride has been successfully booked"
+        },
+
+        // Train ticket tutorial translations
+        "train-ticket-tutorial": {
+            "page.title": "Train Ticket Booking Tutorial - Teach your parents smartphone",
+
+            "tutorial.title": "Booking Train Tickets",
+            "tutorial.completion": "Congratulations! You've successfully learned how to book train tickets using IRCTC.",
+
+            "step1.instruction": "<strong>Step 1:</strong> This is the IRCTC app home screen. To book a ticket, tap on \"Train Tickets\".",
+            "step2.instruction": "<strong>Step 2:</strong> Select departure station in \"From\" and destination station in \"To\".",
+            "step3.instruction": "<strong>Step 3:</strong> Choose travel date and tap \"Find Trains\".",
+            "step4.instruction": "<strong>Step 4:</strong> Select your preferred train from the list of available trains.",
+            "step5.instruction": "<strong>Step 5:</strong> Fill passenger details and tap \"Pay\".",
+
+            "feedback.home": "Great! Train booking started.",
+            "feedback.fromtowhere": "Good job! Stations selected.",
+            "feedback.train": "Excellent! Trains found.",
+            "feedback.trainselect": "Good! Train selected.",
+            "feedback.passenger": "Great! Passenger details filled.",
+            "feedback.pay": "Awesome! Ticket booked.",
+
+            "completion.success": "Ticket Booked!",
+            "completion.message": "Your train ticket has been successfully booked"
+        },
+
+        // Amazon tutorial translations
+        "amazon-tutorial": {
+            "page.title": "Amazon Shopping Tutorial - Teach your parents smartphone",
+
+            "tutorial.title": "Shopping on Amazon",
+            "tutorial.completion": "Congratulations! You've successfully learned how to shop on Amazon.",
+
+            "step1.instruction": "<strong>Step 1:</strong> This is the Amazon app home screen. Use the search bar at the top to search for something.",
+            "step2.instruction": "<strong>Step 2:</strong> Select a product from the search results.",
+            "step3.instruction": "<strong>Step 3:</strong> View product details and tap \"Add to Cart\".",
+            "step4.instruction": "<strong>Step 4:</strong> Go to cart and tap \"Buy Now\".",
+            "step5.instruction": "<strong>Step 5:</strong> Select delivery address and confirm the order.",
+
+            "completion.success": "Order Placed!",
+            "completion.message": "Your Amazon order has been successfully placed"
         }
     },
 
@@ -234,6 +342,114 @@ const TRANSLATIONS = {
 
             "completion.success": "कॉल पूरा हुआ!",
             "completion.message": "आपने सफलतापूर्वक WhatsApp वीडियो कॉल किया है"
+        },
+
+        // Electricity Bill tutorial translations
+        "electricity-bill-tutorial": {
+            "page.title": "बिजली बिल भुगतान ट्यूटोरियल - अपने माता-पिता को स्मार्टफोन सिखाएं",
+
+            "tutorial.title": "बिजली बिल का भुगतान",
+            "tutorial.completion": "बधाई हो! आपने बिजली बिल का भुगतान करना सफलतापूर्वक सीख लिया है।",
+
+            "step1.instruction": "<strong>चरण 1:</strong> यह Paytm का होम स्क्रीन है। बिजली बिल का भुगतान करने के लिए, \"बिजली\" विकल्प पर टैप करें।",
+            "step2.instruction": "<strong>चरण 2:</strong> अपने राज्य का चयन करें। उदाहरण के लिए, \"महाराष्ट्र\" चुनें।",
+            "step3.instruction": "<strong>चरण 3:</strong> अपना बिजली बोर्ड चुनें। उदाहरण के लिए, \"महावितरण-MSEDCL\" चुनें।",
+            "step4.instruction": "<strong>चरण 4:</strong> अपना उप-विभाग या ERO/BU चुनें।",
+            "step5.instruction": "<strong>चरण 5:</strong> अपना उपभोक्ता नंबर दर्ज करें और \"भुगतान करें\" पर टैप करें।",
+
+            "feedback.board": "बढ़िया! आपने बिजली का विकल्प चुना है।",
+            "feedback.state": "अच्छा काम! राज्य चुना गया।",
+            "feedback.subdivision": "बढ़िया! बोर्ड चुना गया।",
+            "feedback.consumer": "अच्छा! उप-विभाग चुना गया।",
+            "feedback.pay": "शानदार! अब आपका बिल भुगतान हो जाएगा।",
+
+            "completion.success": "भुगतान सफल!",
+            "completion.message": "बिजली बिल का भुगतान पूरा हुआ"
+        },
+
+        // Google Maps tutorial translations
+        "google-maps-tutorial": {
+            "page.title": "गूगल मैप्स नेविगेशन ट्यूटोरियल - अपने माता-पिता को स्मार्टफोन सिखाएं",
+
+            "tutorial.title": "गूगल मैप्स के साथ नेविगेशन",
+            "tutorial.completion": "बधाई हो! आपने गूगल मैप्स का उपयोग करके नेविगेशन करना सफलतापूर्वक सीख लिया है।",
+
+            "step1.instruction": "<strong>चरण 1:</strong> यह गूगल मैप्स का होम स्क्रीन है। कोई स्थान खोजने के लिए, ऊपर दिए गए सर्च बार में \"त्रिवेणी घाट\" टाइप करें।",
+            "step2.instruction": "<strong>चरण 2:</strong> खोज परिणामों में से \"त्रिवेणी घाट\" पर टैप करें।",
+            "step3.instruction": "<strong>चरण 3:</strong> स्थान विवरण देखने के बाद, \"दिशाएं\" बटन पर टैप करें।",
+            "step4.instruction": "<strong>चरण 4:</strong> मार्ग विकल्प देखें और \"शुरू करें\" पर टैप करें।",
+            "step5.instruction": "<strong>चरण 5:</strong> नेविगेशन शुरू हो गया है! अब आप निर्देशों का पालन कर सकते हैं।",
+
+            "feedback.home": "बढ़िया! आपने स्थान खोजा है।",
+            "feedback.location": "अच्छा काम! स्थान मिल गया।",
+            "feedback.direction": "बढ़िया! दिशा मिल गई।",
+            "feedback.start": "शानदार! नेविगेशन शुरू हो गया।",
+
+            "completion.success": "नेविगेशन शुरू!",
+            "completion.message": "गूगल मैप्स नेविगेशन सफलतापूर्वक शुरू हुआ"
+        },
+
+        // Ola-Uber tutorial translations
+        "ola-uber-tutorial": {
+            "page.title": "ओला/उबर राइड बुकिंग ट्यूटोरियल - अपने माता-पिता को स्मार्टफोन सिखाएं",
+
+            "tutorial.title": "ओला/उबर राइड बुक करना",
+            "tutorial.completion": "बधाई हो! आपने ओला/उबर राइड बुक करना सफलतापूर्वक सीख लिया है।",
+
+            "step1.instruction": "<strong>चरण 1:</strong> यह ओला ऐप का स्वागत स्क्रीन है। राइड बुक करने के लिए \"राइड बुक करें\" पर टैप करें।",
+            "step2.instruction": "<strong>चरण 2:</strong> अपना पिकअप स्थान चुनें। मैप पर अपनी वर्तमान स्थिति को सेट करें।",
+            "step3.instruction": "<strong>चरण 3:</strong> अपना गंतव्य स्थान दर्ज करें। \"कहां जाना है\" बॉक्स में टाइप करें।",
+            "step4.instruction": "<strong>चरण 4:</strong> कैब का प्रकार चुनें (मिनी, प्राइम, आदि) और \"बुक करें\" पर टैप करें।",
+            "step5.instruction": "<strong>चरण 5:</strong> बुकिंग पूरी! आप अपने ड्राइवर को ट्रैक कर सकते हैं।",
+
+            "feedback.welcome": "बढ़िया! राइड बुकिंग शुरू हुई।",
+            "feedback.pickup": "अच्छा काम! पिकअप स्थान सेट हुआ।",
+            "feedback.destination": "बढ़िया! गंतव्य सेट हुआ।",
+            "feedback.book": "शानदार! राइड बुक हो गई।",
+
+            "completion.success": "राइड बुक हुई!",
+            "completion.message": "आपकी ओला/उबर राइड सफलतापूर्वक बुक हुई"
+        },
+
+        // Train ticket tutorial translations
+        "train-ticket-tutorial": {
+            "page.title": "ट्रेन टिकट बुकिंग ट्यूटोरियल - अपने माता-पिता को स्मार्टफोन सिखाएं",
+
+            "tutorial.title": "ट्रेन टिकट बुक करना",
+            "tutorial.completion": "बधाई हो! आपने IRCTC का उपयोग करके ट्रेन टिकट बुक करना सफलतापूर्वक सीख लिया है।",
+
+            "step1.instruction": "<strong>चरण 1:</strong> यह IRCTC ऐप का होम स्क्रीन है। टिकट बुक करने के लिए \"ट्रेन टिकट\" पर टैप करें।",
+            "step2.instruction": "<strong>चरण 2:</strong> \"From\" में प्रस्थान स्टेशन और \"To\" में गंतव्य स्टेशन चुनें।",
+            "step3.instruction": "<strong>चरण 3:</strong> यात्रा की तारीख चुनें और \"ट्रेन खोजें\" पर टैप करें।",
+            "step4.instruction": "<strong>चरण 4:</strong> उपलब्ध ट्रेनों की सूची से अपनी पसंदीदा ट्रेन चुनें।",
+            "step5.instruction": "<strong>चरण 5:</strong> यात्री विवरण भरें और \"भुगतान करें\" पर टैप करें।",
+
+            "feedback.home": "बढ़िया! ट्रेन बुकिंग शुरू हुई।",
+            "feedback.fromtowhere": "अच्छा काम! स्टेशन चुने गए।",
+            "feedback.train": "बढ़िया! ट्रेन मिली।",
+            "feedback.trainselect": "अच्छा! ट्रेन चुनी गई।",
+            "feedback.passenger": "बढ़िया! यात्री विवरण भरा गया।",
+            "feedback.pay": "शानदार! टिकट बुक हो गई।",
+
+            "completion.success": "टिकट बुक हुई!",
+            "completion.message": "आपकी ट्रेन टिकट सफलतापूर्वक बुक हुई"
+        },
+
+        // Amazon tutorial translations
+        "amazon-tutorial": {
+            "page.title": "अमेज़न शॉपिंग ट्यूटोरियल - अपने माता-पिता को स्मार्टफोन सिखाएं",
+
+            "tutorial.title": "अमेज़न पर शॉपिंग करना",
+            "tutorial.completion": "बधाई हो! आपने अमेज़न पर शॉपिंग करना सफलतापूर्वक सीख लिया है।",
+
+            "step1.instruction": "<strong>चरण 1:</strong> यह अमेज़न ऐप का होम स्क्रीन है। कुछ खोजने के लिए ऊपर दिए गए सर्च बार का उपयोग करें।",
+            "step2.instruction": "<strong>चरण 2:</strong> खोज परिणामों से कोई उत्पाद चुनें।",
+            "step3.instruction": "<strong>चरण 3:</strong> उत्पाद विवरण देखें और \"कार्ट में जोड़ें\" पर टैप करें।",
+            "step4.instruction": "<strong>चरण 4:</strong> कार्ट में जाएं और \"अभी खरीदें\" पर टैप करें।",
+            "step5.instruction": "<strong>चरण 5:</strong> डिलीवरी पता चुनें और ऑर्डर की पुष्टि करें।",
+
+            "completion.success": "ऑर्डर पूरा!",
+            "completion.message": "आपका अमेज़न ऑर्डर सफलतापूर्वक प्लेस हुआ"
         }
     }
 
@@ -288,6 +504,21 @@ function getPageName() {
     }
     if (filename === 'whatsapp-tutorial') {
         return 'whatsapp';
+    }
+    if (filename === 'electricity-bill-tutorial') {
+        return 'electricity-bill-tutorial';
+    }
+    if (filename === 'google-maps-tutorial') {
+        return 'google-maps-tutorial';
+    }
+    if (filename === 'ola-uber-tutorial') {
+        return 'ola-uber-tutorial';
+    }
+    if (filename === 'train-ticket-tutorial') {
+        return 'train-ticket-tutorial';
+    }
+    if (filename === 'amazon-tutorial') {
+        return 'amazon-tutorial';
     }
 
     return filename;
