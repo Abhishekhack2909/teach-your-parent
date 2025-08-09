@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="page.title">Teach your parents smartphone - Simple App Learning Guide</title>
+    <title data-i18n="page.title">Help your parents learn smartphone basics - Simple App Learning Guide</title>
     <meta name="description" data-i18n-attr="content=meta.description"
         content="Easy step-by-step practice guide to help parents and seniors learn essential smartphone apps like PhonePe, WhatsApp, Google Maps, and more.">
     <meta name="keywords"
@@ -114,7 +114,11 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            background-position: center;
+            background-position: center center;
+            background-clip: border-box;
+            /* Prevents background from moving on any device */
+            overscroll-behavior: none;
+            touch-action: none;
         }
 
         body::before {
@@ -136,7 +140,7 @@
     <nav class="modern-nav">
         <div class="nav-brand">
             <div class="brand-icon">📱</div>
-            <span class="brand-text" data-i18n="home.title">Teach your parents smartphone</span>
+            <span class="brand-text" data-i18n="home.title">Help your parents learn smartphone basics</span>
         </div>
         <div class="nav-controls">
             <!-- Dark mode toggle -->
@@ -151,7 +155,7 @@
         <!-- Hero Section -->
         <section class="hero-section">
             <div class="hero-content">
-                <h1 class="hero-title" data-i18n="home.title">Teach your parents smartphone</h1>
+                <h1 class="hero-title" data-i18n="home.title">Help your parents learn smartphone basics</h1>
                 <p class="hero-subtitle" data-i18n="home.subheading">Learn how to use popular apps with step-by-step practice guide.</p>
             </div>
         </section>
@@ -346,8 +350,10 @@
     </footer>
     </div>
     
+    <img src="images/comic-books-bg.jpg" alt="" style="display:none;">
 
     <script src="./js/localization.js"></script>
+    
     
     <!-- Dark mode functionality -->
     <script>
