@@ -619,7 +619,7 @@ button:disabled {
     margin-left: 5px;
 }
 
-/* Responsive adjustment to single column on very small screens */
+
 @media (max-width: 600px) {
     .tutorial-grid {
         grid-template-columns: 1fr;
@@ -779,11 +779,7 @@ body.dark-mode .theme-toggle-btn .dark-icon {
     }
 }
 
-/* ========================
-   MODERN HOMEPAGE STYLES
-   ======================== */
 
-/* Modern Navigation */
 .modern-nav {
     position: fixed;
     top: 0;

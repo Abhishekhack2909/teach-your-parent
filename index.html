@@ -19,7 +19,7 @@
     <meta property="og:site_name" content="Teach Your Parents Smartphone">
     <meta property="og:locale" content="en_US">
 
-    <!-- Twitter -->
+    
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://www.teach-your-parents-smartphone.com/">
     <meta property="twitter:title" content="Teach Your Parents Smartphone - Simple App Learning Guides">
@@ -99,13 +99,13 @@
         @media (max-width: 768px) {
             .tutorial-grid {
                 grid-template-columns: 1fr;
-                /* Show only 1 card per row on smaller screens */
+                
                 gap: 20px;
             }
 
             .tutorial-card {
                 min-height: 280px;
-                /* Slightly smaller cards on mobile */
+                
             }
         }
 
@@ -114,14 +114,19 @@
 </head>
 
 <body>
-    <!-- Navigation Header -->
+    
     <nav class="modern-nav">
         <div class="nav-brand">
             <div class="brand-icon">📱</div>
             <span class="brand-text" data-i18n="home.title">Help your parents learn smartphone basics</span>
         </div>
         <div class="nav-controls">
-            <!-- Dark mode toggle -->
+            <div class="language-selector">
+                <select id="language-select" onchange="changeLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी</option>
+                </select>
+            </div>
             <button id="dark-mode-toggle" class="modern-theme-toggle">
                 <span class="light-icon">☀️</span>
                 <span class="dark-icon">🌙</span>
@@ -130,7 +135,7 @@
     </nav>
 
     <div class="modern-container">
-        <!-- Hero Section -->
+        
         <section class="hero-section">
             <div class="hero-content">
                 <h1 class="hero-title" data-i18n="home.title">Help your parents learn smartphone basics</h1>
@@ -138,7 +143,7 @@
             </div>
         </section>
 
-        <!-- Tutorials Section -->
+        
         <section class="tutorials-section">
             <div class="section-header">
                 <h2 class="section-title">Start Learning</h2>
@@ -146,7 +151,7 @@
             </div>
 
             <div class="modern-tutorial-grid">
-                <!-- Money & Payments -->
+                
                 <div class="modern-tutorial-card" data-category="payments">
                     <a href="tutorials/phonepe-tutorial.html" class="modern-card-link">
                         <div class="card-header">
@@ -167,7 +172,7 @@
                     </a>
                 </div>
 
-                <!-- Communication -->
+                
                 <div class="modern-tutorial-card" data-category="communication">
                     <a href="tutorials/whatsapp-tutorial.html" class="modern-card-link">
                         <div class="card-header">
@@ -188,7 +193,7 @@
                     </a>
                 </div>
 
-                <!-- Bill Payments -->
+                
                 <div class="modern-tutorial-card" data-category="utilities">
                     <a href="tutorials/electricity-bill-tutorial.html" class="modern-card-link">
                         <div class="card-header">
@@ -209,7 +214,7 @@
                     </a>
                 </div>
 
-                <!-- Transportation -->
+                
                 <div class="modern-tutorial-card" data-category="transportation">
                     <a href="tutorials/ola-uber-tutorial.html" class="modern-card-link">
                         <div class="card-header">
@@ -230,7 +235,7 @@
                     </a>
                 </div>
 
-                <!-- Google Maps -->
+                
                 <div class="modern-tutorial-card" data-category="navigation">
                     <a href="tutorials/google-maps-tutorial.html" class="modern-card-link">
                         <div class="card-header">
@@ -251,7 +256,7 @@
                     </a>
                 </div>
 
-                <!-- IRCTC -->
+                
                 <div class="modern-tutorial-card" data-category="travel">
                     <a href="tutorials/train-ticket-tutorial.html" class="modern-card-link">
                         <div class="card-header">
@@ -274,10 +279,10 @@
             </div>
         </section>
 
-        <!-- Stats and About Section -->
+        
         <section class="stats-about-section">
             <div class="section-content">
-                <!-- Quick Stats -->
+                
                 <div class="stats-container">
                     <div class="stat-item stat-red">
                         <div class="stat-number">7</div>
@@ -293,7 +298,7 @@
                     </div>
                 </div>
 
-                <!-- About link -->
+                
                 <div class="about-section">
                     <a href="about.html" class="modern-about-link">
                         <span data-i18n="home.why">Why I built this?</span>
@@ -306,7 +311,7 @@
         </section>
     </div>
 
-    <!-- Modern Footer -->
+    
     <footer class="modern-footer">
         <div class="footer-content">
             <div class="footer-brand">
@@ -333,30 +338,30 @@
     <script src="./js/localization.js"></script>
     
     
-    <!-- Dark mode functionality -->
+    
     <script>
-        // Dark mode functionality
+        
         const darkModeToggle = document.getElementById('dark-mode-toggle');
         const body = document.body;
         
-        // Check for saved theme preference or default to light mode
+        
         const currentTheme = localStorage.getItem('theme') || 'light';
         
-        // Apply the saved theme on page load
+        
         if (currentTheme === 'dark') {
             body.classList.add('dark-mode');
         }
         
-        // Toggle dark mode
+        
         darkModeToggle.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
             
-            // Save the current theme preference
+            
             const isDarkMode = body.classList.contains('dark-mode');
             localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
         });
         
-        // Check system preference for dark mode
+        
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('theme')) {
             body.classList.add('dark-mode');
             localStorage.setItem('theme', 'dark');
