@@ -31,7 +31,7 @@
             max-width: 900px;
             margin: 40px auto 0 auto;
             padding: 32px 24px;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 24px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
         }
@@ -68,14 +68,14 @@
         }
 
         .tutorial-controls button:disabled {
-            background: #cccccc;
-            color: #fff;
+            background: #080202;
+            color: #0b0808;
         }
 
         .phone-container {
             border: 12px solid #333;
             border-radius: 36px;
-            background: #fff;
+            background: grey;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
             margin-bottom: 30px;
             position: relative;
@@ -168,6 +168,65 @@
 
         .step-instructions strong {
             color: #5f259f;
+        }
+
+        /* Dark mode styles */
+        .dark-mode {
+            background-image: url('../images/comic-books-bg.jpg');
+            background-color: #181828 !important;
+            color: #f3f3f3 !important;
+        }
+
+        .dark-mode .container {
+            background: rgba(24, 24, 40, 0.95) !important;
+            color: #f3f3f3 !important;
+        }
+
+        .dark-mode .step-instructions {
+            background-color: #23234a !important;
+            border-left: 5px solid #a084e8 !important;
+            color: #e0e0e0 !important;
+        }
+
+        .dark-mode .progress-dot {
+            background: #444 !important;
+        }
+
+        .dark-mode .progress-dot.active {
+            background: #a084e8 !important;
+        }
+
+        .dark-mode .tutorial-controls button {
+            background: linear-gradient(90deg, #a084e8 0%, #5f259f 100%) !important;
+            color: #fff !important;
+        }
+
+        .dark-mode .phone-container {
+            background: #23234a !important;
+            border-color: #a084e8 !important;
+        }
+
+        .dark-mode .feedback {
+            background-color: #23234a !important;
+            color: #fff !important;
+        }
+
+        .dark-mode .back-link {
+            color: #a084e8 !important;
+        }
+
+        .dark-mode .clickable-area {
+            border-color: #a084e8 !important;
+        }
+
+        .dark-mode .debug-mode .clickable-area {
+            background-color: rgba(160, 132, 232, 0.2) !important;
+            border: 2px dashed #a084e8 !important;
+        }
+
+        .dark-mode .dark-mode-toggle button {
+            background: #23234a !important;
+            color: #fff !important;
         }
 
         @media (max-width: 600px) {
