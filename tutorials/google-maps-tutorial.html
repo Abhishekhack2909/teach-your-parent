@@ -7,7 +7,331 @@
     <title data-i18n="page.title">Google Maps Navigation Tutorial - Teach your parents smartphone</title>
     <link rel="stylesheet" href="../styles.css">
     <style>
-        /* Removed clickable areas - using text-only instructions */
+        body {
+            background-image: url('../images/comic-books-bg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1); 
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .tutorial-main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 32px 0 0 0;
+        }
+
+        .tutorial-phone-mockup {
+            background: #fff;
+            border-radius: 32px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            padding: 24px 16px 16px 16px;
+            width: 320px;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .tutorial-phone-mockup img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .step-nav-cards {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 16px;
+            margin: 24px 0 0 0;
+            flex-wrap: wrap;
+        }
+
+        .step-nav-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(95, 37, 159, 0.08);
+            padding: 16px 20px;
+            min-width: 180px;
+            max-width: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: box-shadow 0.2s;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .step-nav-card.active,
+        .step-nav-card:hover {
+            border: 2px solid #5f259f;
+            box-shadow: 0 4px 16px rgba(95, 37, 159, 0.12);
+        }
+
+        .step-nav-card .step-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: #5f259f;
+            margin-bottom: 6px;
+        }
+
+        .step-nav-card .step-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .step-nav-card .step-desc {
+            font-size: 14px;
+            color: #444;
+        }
+
+        .tutorial-progress-bar {
+            width: 100%;
+            max-width: 320px;
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            margin: 0 auto 24px auto;
+            overflow: hidden;
+        }
+
+        .tutorial-progress-bar-inner {
+            height: 100%;
+            background: linear-gradient(90deg, #5f259f 60%, #8b5cf6 100%);
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        .tutorial-controls {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin: 24px 0 0 0;
+        }
+
+        .tutorial-controls button {
+            background: #5f259f;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 22px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .tutorial-controls button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 600px) {
+            .tutorial-main-container {
+                padding: 12px 0 0 0;
+            }
+
+            .tutorial-phone-mockup {
+                width: 98vw;
+                min-width: 0;
+                padding: 8px 2vw 8px 2vw;
+            }
+
+            .step-nav-cards {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .step-nav-card {
+                min-width: 0;
+                width: 90vw;
+                max-width: 98vw;
+            }
+
+            .tutorial-progress-bar,
+            .tutorial-progress-bar-inner {
+                max-width: 98vw;
+            }
+        }
+
+        /* Add these new styles and modify existing ones */
+        .tutorial-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 30px;
+        }
+
+        .phone-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .navigation-section {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .nav-box {
+            background: #ffffff;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-box.active {
+            border-color: #5f259f;
+            box-shadow: 0 4px 12px rgba(95, 37, 159, 0.15);
+        }
+
+        .nav-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-box-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .step-icon {
+            background: #5f259f;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: bold;
+        }
+
+        .nav-box-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .nav-box-content {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        /* Phone mockup styles */
+        .phone-mockup {
+            background: white;
+            border-radius: 40px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .screenshot {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Media queries */
+        @media (max-width: 768px) {
+            .tutorial-container {
+                flex-direction: column;
+            }
+
+            .navigation-section {
+                order: 2;
+                max-width: 100%;
+            }
+
+            .phone-section {
+                order: 1;
+            }
+        }
+
+        /* Dark mode styles */
+        body.dark-mode .nav-box {
+            background: #1a1a1a;
+            border-color: #333;
+        }
+
+        body.dark-mode .nav-box-title {
+            color: #fff;
+        }
+
+        body.dark-mode .nav-box-content {
+            color: #ccc;
+        }
+
+        /* Add these styles for clickable areas */
+        .clickable-area {
+            position: absolute;
+            background-color: rgba(95, 37, 159, 0);
+            border: 2px solid rgba(95, 37, 159, 0);
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .debug-mode .clickable-area {
+            background-color: rgba(95, 37, 159, 0.2);
+            border: 2px dashed #5f259f;
+        }
+
+        /* Define positions for each clickable area */
+        #search-bar-area {
+            top: 5%;
+            left: 10%;
+            width: 80%;
+            height: 8%;
+        }
+
+        #select-location-area {
+            top: 15%;
+            left: 5%;
+            width: 90%;
+            height: 12%;
+        }
+
+        #directions-button-area {
+            top: 45%;
+            left: 10%;
+            width: 80%;
+            height: 10%;
+        }
+
+        #start-navigation-area {
+            bottom: 15%;
+            left: 20%;
+            width: 60%;
+            height: 10%;
+        }
 
         .feedback {
             position: absolute;
@@ -18,89 +342,133 @@
             font-size: 16px;
             width: 70%;
             left: 15%;
-            /* Center horizontally */
             text-align: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             z-index: 20;
             opacity: 0;
             transition: opacity 0.5s ease;
+            top: 50%;
+        }
+
+        .phone-container {
+            position: relative;
+            width: 320px;
+            margin: 0 auto 24px auto;
+        }
+
+        .screen {
+            display: none;
+            position: relative;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .screenshot {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .clickable-area {
+            position: absolute;
+            background-color: rgba(255,0,0,0.3) !important;
+            border: 2px solid red !important;
+            z-index: 20 !important;
+        }
+
+        .debug-mode .clickable-area {
+            background-color: rgba(95, 37, 159, 0.2);
+            border: 2px dashed #5f259f;
+        }
+
+        /* Clickable area positions for each step (adjust as needed) */
+        #search-bar-area {
+            top: 3%;
+            left: 8%;
+            width: 84%;
+            height: 10%;
+        }
+
+        #select-location-area {
+            top: 13%;
+            left: 8%;
+            width: 84%;
+            height: 8%;
+        }
+
+        #directions-button-area {
+            top: 62%;
+            left: 5%;
+            width: 40%;
+            height: 8%;
+        }
+
+        #start-navigation-area {
+            top: 92%;
+            left: 8%;
+            width: 25%;
+            height: 5%;
+        }
+
+        .feedback {
+            position: absolute;
+            background-color: #4CAF50;
+            color: white;
+            padding: 5%;
+            border-radius: 10px;
+            font-size: 16px;
+            width: 70%;
+            left: 15%;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 20;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            top: 50%;
+        }
+
+        .progress-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .progress-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ddd;
+            margin: 0 6px;
+            transition: background 0.3s;
+        }
+
+        .progress-dot.active {
+            background: #5f259f;
+        }
+
+        .tutorial-controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0;
         }
 
         .step-instructions {
-            background-color: #e8f4fd;
-            border-left: 8px solid #4285F4;
-            padding: 25px;
-            margin-bottom: 30px;
-            border-radius: 10px;
-            max-width: 700px;
+            background-color: grey;
+            border-left: 5px solid purple;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            max-width: 600px;
             width: 100%;
-            font-size: 20px;
-            line-height: 1.6;
-            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.1);
+            font-size: 16px;
+            line-height: 1.5;
         }
 
         .step-instructions strong {
-            color: #1a73e8;
-            font-size: 24px;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        /* Dark mode styles for Google Maps tutorial */
-        body.dark-mode .step-instructions {
-            background-color: #1a365d;
-            border-left-color: #4285F4;
-        }
-
-        body.dark-mode .step-instructions strong {
-            color: #60a5fa;
-        }
-        
-        .all-steps-container {
-            max-width: 700px;
-            width: 100%;
-            margin-bottom: 30px;
-        }
-        
-        .all-steps-container .step-instructions {
-            margin-bottom: 20px;
-        }
-        
-        .all-steps-container .step-instructions:last-child {
-            margin-bottom: 0;
-        }
-        .main-flex-container {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 0;
-        }
-        .phone-tutorial-panel {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 320px;
-        }
-        .progress-indicator {
-            margin-bottom: 20px;
-        }
-        .tutorial-controls {
-            margin-top: 20px;
-        }
-        @media (max-width: 900px) {
-            .main-flex-container {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-            }
-            .all-steps-container {
-                max-width: 100%;
-                min-width: 0;
-            }
+            color: #5f259f;
         }
     </style>
 </head>
@@ -114,258 +482,168 @@
                 <span class="dark-icon">🌙</span>
             </button>
         </div>
-
-        <h1 data-i18n="tutorial.title">Navigate with Google Maps</h1>
-
-        <!-- Main flex container for side-by-side layout -->
-        <div class="main-flex-container">
-            <!-- Left side: All step instructions -->
-            <div class="all-steps-container">
-                <div class="step-instructions">
-                    <strong>Step 1: Open Search Bar</strong><br>
-                    Look at the top of the Google Maps screen. You will see a white search bar with the text "Search here" in the center. This search bar has a Google Maps pin icon on the left side. Tap on this search bar to open the search interface where you can type the name of the place you want to find.
-                </div>
-                
-                <div class="step-instructions">
-                    <strong>Step 2: Select Triveni Ghat</strong><br>
-                    Now you can see the search results. Look for the first recommendation that says "Triveni Ghat" in the list. This will be the main result for Triveni Ghat in Rishikesh, Uttarakhand. Tap on this result to view the location details and information about this place.
-                </div>
-                
-                <div class="step-instructions">
-                    <strong>Step 3: Get Directions</strong><br>
-                    You can see the location details for Triveni Ghat. Look for a blue button that says "Directions" with a compass or arrow icon. This button is usually located in the middle section of the screen. Tap on this blue "Directions" button to get route options to reach this place.
-                </div>
-                
-                <div class="step-instructions">
-                    <strong>Step 4: Start Navigation</strong><br>
-                    Google Maps is showing you the route options. Look for a large green button that says "Start" with a play icon. This button is usually located at the bottom left of the screen. Tap this green "Start" button to begin turn-by-turn navigation to Triveni Ghat.
-                </div>
+        <h1 data-i18n="tutorial.title" style="text-align:center;margin-bottom:18px;">Navigate with Google Maps</h1>
+        <div class="step-instructions" id="step-instructions">
+            <strong>Step 1:</strong> Tap the white search bar at the top of Google Maps.
+        </div>
+        <div class="progress-indicator">
+            <div class="progress-dot active" data-step="1"></div>
+            <div class="progress-dot" data-step="2"></div>
+            <div class="progress-dot" data-step="3"></div>
+            <div class="progress-dot" data-step="4"></div>
+        </div>
+        <div class="phone-container" id="phone-container">
+            <!-- Step 1 -->
+            <div class="screen active" id="home-screen">
+                <img src="../images/google-tutorial/home.jpg" alt="Google Maps Home Screen" class="screenshot">
+                <div class="clickable-area" id="search-bar-area"></div>
+                <div class="feedback" id="home-feedback">Great! Now select Triveni Ghat or Any other location from the results.</div>
             </div>
-
-            <!-- Right side: Phone screen and controls -->
-            <div class="phone-tutorial-panel">
-                <div class="progress-indicator">
-                    <div class="progress-dot active" data-step="1" style="background-color: #5f259f; border: 2px solid #5f259f; transform: scale(1.2);"></div>
-                    <div class="progress-dot" data-step="2" style="background-color: #ddd;"></div>
-                    <div class="progress-dot" data-step="3" style="background-color: #ddd;"></div>
-                    <div class="progress-dot" data-step="4" style="background-color: #ddd;"></div>
-                </div>
-
-                <div class="phone-container" id="phone-container">
-                    <!-- Home Screen -->
-                    <div class="screen" id="home-screen">
-                        <img src="../images/google-tutorial/home.jpg" alt="Google Maps Home Screen"
-                            class="screenshot language-image" data-img-base="../images/google-tutorial/home">
-                    </div>
-
-                    <!-- Location Details Screen -->
-                    <div class="screen hidden" id="location-screen">
-                        <img src="../images/google-tutorial/location.jpg" alt="Google Maps Location Details"
-                            class="screenshot language-image" data-img-base="../images/google-tutorial/location">
-                    </div>
-
-                    <!-- Directions Screen -->
-                    <div class="screen hidden" id="direction-screen">
-                        <img src="../images/google-tutorial/direction.jpg" alt="Google Maps Directions Screen"
-                            class="screenshot language-image" data-img-base="../images/google-tutorial/direction">
-                    </div>
-
-                    <!-- Completion Screen -->
-                    <div class="screen hidden" id="completion-screen">
-                        <img src="../images/google-tutorial/start.jpg" alt="Google Maps Navigation Started"
-                            class="screenshot language-image" data-img-base="../images/google-tutorial/start">
-                    </div>
-                </div>
-
-                <!-- Tutorial Controls -->
-                <div class="tutorial-controls">
-                    <button id="prev-button" onclick="previousStep()" data-i18n="button.previous">Previous</button>
-                    <button id="next-button" onclick="nextStep()" data-i18n="button.next">Next</button>
-                    <button onclick="resetTutorial()" data-i18n="button.reset">Start Over</button>
-                </div>
-
-                <div class="task-complete" id="task-complete">
-                    <span data-i18n="tutorial.completion">Congratulations! You've successfully learned how to navigate using Google Maps.</span>
-                    <br><br>
-                    <button onclick="window.location.href='/'" class="primary-button" data-i18n="button.back">Back to Home</button>
-                    <button onclick="resetTutorial()" data-i18n="button.tryAgain">Start Over</button>
-                </div>
+            <!-- Step 2 -->
+            <div class="screen" id="location-screen">
+                <img src="../images/google-tutorial/location.jpg" alt="Location Selection" class="screenshot">
+                <div class="clickable-area" id="select-location-area"></div>
+                <div class="feedback" id="location-feedback">Good! Now tap Directions.</div>
+            </div>
+            <!-- Step 3 -->
+            <div class="screen" id="direction-screen">
+                <img src="../images/google-tutorial/direction.jpg" alt="Get Directions" class="screenshot">
+                <div class="clickable-area" id="directions-button-area"></div>
+                <div class="feedback" id="direction-feedback">Awesome! Now tap Start to begin navigation.</div>
+            </div>
+            <!-- Step 4 -->
+            <div class="screen" id="navigation-screen">
+                <img src="../images/google-tutorial/start.jpg" alt="Start Navigation" class="screenshot">
+                <div class="clickable-area" id="start-navigation-area"></div>
+                <div class="feedback" id="navigation-feedback">Congratulations! You started navigation.</div>
             </div>
         </div>
+        <div class="tutorial-controls">
+            <button id="prev-button" disabled>Previous</button>
+            <button id="reset-button">Start Over</button>
+            <button id="debug-toggle">Show Clickable Areas</button>
+        </div>
+        <a href="/" class="back-link">← <span data-i18n="button.back">Back to Home</span></a>
     </div>
-
     <script src="../js/localization.js"></script>
-
     <script>
-        // Tutorial state management
+        // Tutorial state
         const tutorial = {
-            currentScreen: 'home-screen',
             currentStep: 1,
             totalSteps: 4,
-            instructions: {},
             expectedActions: {
-                'home-screen': 'search-bar',
-                'location-screen': 'triveni-ghat-result',
-                'direction-screen': 'directions-button',
-                'completion-screen': 'start-navigation'
-            }
+                1: 'search-bar-area',
+                2: 'select-location-area',
+                3: 'directions-button-area',
+                4: 'start-navigation-area'
+            },
+            instructions: {
+                1: '<strong>Step 1:</strong> Tap the white search bar at the top of Google Maps.',
+                2: '<strong>Step 2:</strong> Select "Triveni Ghat" from the search results.',
+                3: '<strong>Step 3:</strong> Tap the blue "Directions" button.',
+                4: '<strong>Step 4:</strong> Tap the green "Start" button to begin navigation.'
+            },
+            feedbacks: [
+                "Great! Now select Triveni Ghat from the results.",
+                "Good! Now tap Directions.",
+                "Awesome! Now tap Start to begin navigation.",
+                "Congratulations! You started navigation."
+            ]
         };
 
         // DOM elements
+        const screens = [
+            document.getElementById('home-screen'),
+            document.getElementById('location-screen'),
+            document.getElementById('direction-screen'),
+            document.getElementById('navigation-screen')
+        ];
+        const feedbacks = [
+            document.getElementById('home-feedback'),
+            document.getElementById('location-feedback'),
+            document.getElementById('direction-feedback'),
+            document.getElementById('navigation-feedback')
+        ];
+        const stepInstructions = document.getElementById('step-instructions');
         const progressDots = document.querySelectorAll('.progress-dot');
         const prevButton = document.getElementById('prev-button');
-        const taskComplete = document.getElementById('task-complete');
+        const resetButton = document.getElementById('reset-button');
+        const debugToggle = document.getElementById('debug-toggle');
+        const phoneContainer = document.getElementById('phone-container');
 
-        // Next step function
-        function nextStep() {
-            if (tutorial.currentStep <= tutorial.totalSteps) {
-                tutorial.currentStep++;
-                const screens = ['home-screen', 'location-screen', 'direction-screen', 'completion-screen'];
-                const targetScreen = screens[tutorial.currentStep - 1];
-                
-                transitionToScreen(targetScreen);
-                updateProgress();
-                updateButtonStates();
-                
-                // Show completion message when we reach the last step
-                if (tutorial.currentStep > tutorial.totalSteps) {
-                    taskComplete.style.display = 'block';
-                }
+        // Set up clickable areas
+        document.getElementById('search-bar-area').onclick = handleAreaClick;
+        document.getElementById('select-location-area').onclick = handleAreaClick;
+        document.getElementById('directions-button-area').onclick = handleAreaClick;
+        document.getElementById('start-navigation-area').onclick = handleAreaClick;
+
+        function handleAreaClick(e) {
+            const clickedId = e.target.id;
+            const expectedId = tutorial.expectedActions[tutorial.currentStep];
+            if (clickedId === expectedId) {
+                showFeedback(tutorial.currentStep - 1, true);
+                setTimeout(() => {
+                    if (tutorial.currentStep < tutorial.totalSteps) {
+                        goToStep(tutorial.currentStep + 1);
+                    }
+                }, 1200);
+            } else {
+                showFeedback(tutorial.currentStep - 1, false);
             }
         }
 
-        // Transition between screens
-        function transitionToScreen(screenId) {
-            // Hide current screen
-            const currentScreen = document.getElementById(tutorial.currentScreen);
-            if (currentScreen) {
-                currentScreen.classList.add('hidden');
-            }
-
-            // Show new screen
-            const newScreen = document.getElementById(screenId);
-            if (newScreen) {
-                newScreen.classList.remove('hidden');
-                tutorial.currentScreen = screenId;
+        function showFeedback(idx, success) {
+            feedbacks.forEach(fb => fb.style.opacity = 0);
+            const fb = feedbacks[idx];
+            if (fb) {
+                fb.style.backgroundColor = success ? '#4CAF50' : '#f44336';
+                fb.textContent = success
+                    ? tutorial.feedbacks[idx]
+                    : 'Try again! Click the highlighted area.';
+                fb.style.opacity = 1;
+                setTimeout(() => { fb.style.opacity = 0; }, 1000);
             }
         }
 
-        // Update progress indicator
-        function updateProgress() {
-            const progressDots = document.querySelectorAll('.progress-dot');
-            console.log('Updating progress - Current step:', tutorial.currentStep);
-            console.log('Found dots:', progressDots.length);
-            
-            progressDots.forEach((dot, index) => {
-                const stepNumber = index + 1;
-                if (stepNumber <= tutorial.currentStep) {
-                    // Use inline styles to ensure visibility
-                    dot.style.backgroundColor = '#5f259f';
-                    dot.style.border = '2px solid #5f259f';
-                    dot.style.transform = 'scale(1.2)';
-                    dot.style.boxShadow = '0 0 10px rgba(95, 37, 159, 0.3)';
-                    dot.classList.add('active');
-                    console.log(`Dot ${stepNumber}: ACTIVE - Purple`);
-                } else {
-                    // Reset to inactive state
-                    dot.style.backgroundColor = '#ddd';
-                    dot.style.border = '2px solid transparent';
-                    dot.style.transform = 'scale(1)';
-                    dot.style.boxShadow = 'none';
-                    dot.classList.remove('active');
-                    console.log(`Dot ${stepNumber}: inactive - Gray`);
-                }
+        function goToStep(step) {
+            tutorial.currentStep = step;
+            screens.forEach((screen, idx) => {
+                screen.classList.toggle('active', idx === step - 1);
             });
-            
-            // Force a repaint
-            progressDots.forEach(dot => dot.offsetHeight);
+            stepInstructions.innerHTML = tutorial.instructions[step];
+            progressDots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === step - 1);
+            });
+            prevButton.disabled = step === 1;
         }
 
-
-
-        // Previous step function
-        function previousStep() {
+        prevButton.onclick = function() {
             if (tutorial.currentStep > 1) {
-                tutorial.currentStep--;
-                const screens = ['home-screen', 'location-screen', 'direction-screen', 'completion-screen'];
-                const targetScreen = screens[tutorial.currentStep - 1];
-                
-                transitionToScreen(targetScreen);
-                updateProgress();
-                updateButtonStates();
-                taskComplete.style.display = 'none';
+                goToStep(tutorial.currentStep - 1);
             }
-        }
+        };
+        resetButton.onclick = function() {
+            goToStep(1);
+        };
+        debugToggle.onclick = function() {
+            document.body.classList.toggle('debug-mode');
+            debugToggle.textContent = document.body.classList.contains('debug-mode')
+                ? 'Hide Clickable Areas'
+                : 'Show Clickable Areas';
+        };
 
-        // Reset the tutorial to the beginning
-        function resetTutorial() {
-            // Reset tutorial state
-            tutorial.currentScreen = 'home-screen';
-            tutorial.currentStep = 1;
-
-            // Hide all screens first
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.add('hidden');
-            });
-
-            // Show the home screen
-            const homeScreen = document.getElementById('home-screen');
-            if (homeScreen) {
-                homeScreen.classList.remove('hidden');
-            }
-
-            // Reset progress
-            updateProgress();
-            updateButtonStates();
-
-            // Hide completion message
-            taskComplete.style.display = 'none';
-        }
-
-        // Update the state of the navigation buttons
-        function updateButtonStates() {
-            prevButton.disabled = tutorial.currentStep === 1;
-            const nextButton = document.getElementById('next-button');
-            if (nextButton) {
-                // Disable next button when tutorial is complete
-                nextButton.disabled = taskComplete.style.display === 'block';
-            }
-        }
-
-        // Initialize the tutorial
-        function initTutorial() {
-            updateProgress();
-            updateButtonStates();
-        }
-
-        // Start the tutorial when the page loads
-        window.onload = initTutorial;
-    </script>
-
-    <!-- Dark mode functionality -->
-    <script>
         // Dark mode functionality
         const darkModeToggle = document.getElementById('dark-mode-toggle');
         const body = document.body;
-        
-        // Check for saved theme preference or default to light mode
         const currentTheme = localStorage.getItem('theme') || 'light';
-        
-        // Apply the saved theme on page load
         if (currentTheme === 'dark') {
             body.classList.add('dark-mode');
         }
-        
-        // Toggle dark mode
         darkModeToggle.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
-            
-            // Save the current theme preference
             const isDarkMode = body.classList.contains('dark-mode');
             localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
         });
-        
-        // Check system preference for dark mode
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('theme')) {
             body.classList.add('dark-mode');
             localStorage.setItem('theme', 'dark');
@@ -373,4 +651,4 @@
     </script>
 </body>
 
-</html> 
+</html>

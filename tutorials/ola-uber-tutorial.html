@@ -3,62 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="page.title">Book an Ola/Uber Ride - Teach your parents smartphone</title>
+    <title>Book an Ola/Uber Ride - Teach your parents smartphone</title>
     <link rel="stylesheet" href="../styles.css">
     <style>
+        body {
+            background-image: url('../images/comic-books-bg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: -1;
+            pointer-events: none;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto 0 auto;
+            padding: 32px 24px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+        h1 {
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 0 1px 0 #000;
+            background: var(--gradient-mixed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .step-instructions {
+            background-color: var(--primary-light);
+            border-left: 5px solid var(--primary);
+            color: var(--text-dark);
+        }
+        .progress-dot.active {
+            background: var(--primary);
+        }
+        .tutorial-controls button {
+            background: var(--gradient-purple);
+            color: #fff;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            padding: 12px 24px;
+            border: none;
+            transition: all 0.3s;
+        }
+        .tutorial-controls button:disabled {
+            background: #cccccc;
+            color: #fff;
+        }
+        .phone-container {
+            border: 12px solid #333;
+            border-radius: 36px;
+            background: #fff;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            position: relative;
+            width: 320px;
+        }
+        .screen {
+            display: none;
+            position: relative;
+        }
+        .screen.active {
+            display: block;
+        }
+        .screenshot {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+        .clickable-area {
+            position: absolute;
+            background-color: rgba(95, 37, 159, 0);
+            border: 2px solid rgba(95, 37, 159, 0);
+            cursor: pointer;
+            z-index: 9999;
+            transition: all 0.3s ease;
+        }
+        .debug-mode .clickable-area {
+            background-color: rgba(95, 37, 159, 0.2);
+            border: 2px dashed #5f259f;
+        }
+        .feedback {
+            position: absolute;
+            background-color: #4CAF50;
+            color: white;
+            padding: 5%;
+            border-radius: 10px;
+            font-size: 16px;
+            width: 70%;
+            left: 15%;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 20;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            top: 50%;
+        }
+        .progress-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .progress-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ddd;
+            margin: 0 6px;
+            transition: background 0.3s;
+        }
+        .progress-dot.active {
+            background: #5f259f;
+        }
+        .tutorial-controls {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0;
+        }
         .step-instructions {
             background-color: #e8f4fd;
-            border-left: 8px solid #0088cc;
-            padding: 25px;
-            margin-bottom: 30px;
-            border-radius: 10px;
-            max-width: 700px;
+            border-left: 5px solid #5f259f;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            max-width: 600px;
             width: 100%;
-            font-size: 20px;
-            line-height: 1.6;
-            box-shadow: 0 4px 15px rgba(0, 136, 204, 0.1);
+            font-size: 16px;
+            line-height: 1.5;
         }
         .step-instructions strong {
-            color: #0088cc;
-            font-size: 24px;
-            display: block;
-            margin-bottom: 10px;
+            color: #5f259f;
         }
-        body.dark-mode .step-instructions {
-            background-color: #1a365d;
-            border-left-color: #0088cc;
-        }
-        body.dark-mode .step-instructions strong {
-            color: #60a5fa;
-        }
-        .all-steps-container {
-            max-width: 700px;
-            width: 100%;
-            margin-bottom: 30px;
-        }
-        .all-steps-container .step-instructions { margin-bottom: 20px; }
-        .all-steps-container .step-instructions:last-child { margin-bottom: 0; }
-        .main-flex-container {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 0;
-        }
-        .phone-tutorial-panel {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 320px;
-        }
-        .progress-indicator { margin-bottom: 20px; }
-        .tutorial-controls { margin-top: 20px; }
-        @media (max-width: 900px) {
-            .main-flex-container { flex-direction: column; align-items: center; gap: 20px; }
-            .all-steps-container { max-width: 100%; min-width: 0; }
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px 2vw;
+            }
+            .phone-container {
+                width: 98vw;
+                min-width: 0;
+            }
         }
     </style>
 </head>
@@ -70,166 +167,167 @@
                 <span class="dark-icon">🌙</span>
             </button>
         </div>
-        <h1 data-i18n="tutorial.title">Book an Ola/Uber Ride</h1>
-        <div class="main-flex-container">
-            <div class="all-steps-container">
-                <div class="step-instructions">
-                    <strong>Step 1: Open Ola/Uber App</strong><br>
-                    Find and tap the Ola or Uber app icon on your phone's home screen. You will see a welcome screen. Tap "Continue with Phone Number" or use Google/Facebook to log in if prompted.
-                </div>
-                <div class="step-instructions">
-                    <strong>Step 2: Set Your Pickup Location</strong><br>
-                    The app will show a map with your current location. Make sure the green dot is at your pickup point. If needed, move the map or enter your pickup address.
-                </div>
-                <div class="step-instructions">
-                    <strong>Step 3: Enter Your Destination</strong><br>
-                    Tap the "Search Destination" or destination field. Type your destination (e.g., Pune Railway Station) and select it from the suggestions.
-                </div>
-                <div class="step-instructions">
-                    <strong>Step 4: Choose Your Ride</strong><br>
-                    The app will show available ride options (Auto, Mini, Prime, etc.) with estimated fares and times. Review the options and tap on the one you want to book.
-                </div>
-                <div class="step-instructions">
-                    <strong>Step 5: Confirm Pickup and Book</strong><br>
-                    Double-check your pickup and drop locations. If needed, edit the pickup point. Then tap the "Book" or "Confirm" button to request your ride. Wait for driver confirmation.
-                </div>
+        <h1 style="text-align:center;margin-bottom:18px;">Book an Ola/Uber Ride</h1>
+        <div class="step-instructions" id="step-instructions">
+            <strong>Step 1:</strong> Tap the Ola/Uber app icon on your home screen.
+        </div>
+        <div class="progress-indicator">
+            <div class="progress-dot active" data-step="1"></div>
+            <div class="progress-dot" data-step="2"></div>
+            <div class="progress-dot" data-step="3"></div>
+            <div class="progress-dot" data-step="4"></div>
+            <div class="progress-dot" data-step="5"></div>
+        </div>
+        <div class="phone-container" id="phone-container">
+            <!-- Step 1 -->
+            <div class="screen active" id="welcome-screen">
+                <img src="../images/ola-uber-tutorial/welcome.png" alt="Ola/Uber Welcome Screen" class="screenshot">
+                <div class="clickable-area" id="welcome-area" style="top:80%;left:10%;width:60%;height:10%;"></div>
+                <div class="feedback" id="welcome-feedback">Great! Now set your pickup location.</div>
             </div>
-            <div class="phone-tutorial-panel">
-                <div class="progress-indicator">
-                    <div class="progress-dot active" data-step="1" style="background-color: #0088cc; border: 2px solid #0088cc; transform: scale(1.2);"></div>
-                    <div class="progress-dot" data-step="2" style="background-color: #ddd;"></div>
-                    <div class="progress-dot" data-step="3" style="background-color: #ddd;"></div>
-                    <div class="progress-dot" data-step="4" style="background-color: #ddd;"></div>
-                    <div class="progress-dot" data-step="5" style="background-color: #ddd;"></div>
-                </div>
-                <div class="phone-container" id="phone-container">
-                    <!-- Step 1: Welcome/Login -->
-                    <div class="screen" id="welcome-screen">
-                        <img src="../images/ola-uber-tutorial/welcome.png" alt="Ola/Uber Welcome Screen" class="screenshot language-image" data-img-base="../images/ola-uber-tutorial/welcome">
-                    </div>
-                    <!-- Step 2: Map with Search -->
-                    <div class="screen hidden" id="map-screen">
-                        <img src="../images/ola-uber-tutorial/map.png" alt="Map and Search Destination" class="screenshot language-image" data-img-base="../images/ola-uber-tutorial/map">
-                    </div>
-                    <!-- Step 3: Enter Destination -->
-                    <div class="screen hidden" id="destination-screen">
-                        <img src="../images/ola-uber-tutorial/pickup.png" alt="Enter Destination" class="screenshot language-image" data-img-base="../images/ola-uber-tutorial/destination">
-                    </div>
-                    <!-- Step 4: Ride Options -->
-                    <div class="screen hidden" id="rides-screen">
-                        <img src="../images/ola-uber-tutorial/destination.png" alt="Ride Options and Fare" class="screenshot language-image" data-img-base="../images/ola-uber-tutorial/rides">
-                    </div>
-                    <!-- Step 5: Pickup Location -->
-                    <div class="screen hidden" id="pickup-screen">
-                        <img src="../images/ola-uber-tutorial/book.png" alt="Pickup Location Entry" class="screenshot language-image" data-img-base="../images/ola-uber-tutorial/pickup">
-                    </div>
-                </div>
-                <div class="tutorial-controls">
-                    <button id="prev-button" onclick="previousStep()" data-i18n="button.previous">Previous</button>
-                    <button id="next-button" onclick="nextStep()" data-i18n="button.next">Next</button>
-                    <button onclick="resetTutorial()" data-i18n="button.reset">Start Over</button>
-                </div>
-                <div class="task-complete" id="task-complete">
-                    <span data-i18n="tutorial.completion">Congratulations! You've successfully learned how to book an Ola/Uber ride.</span>
-                    <br><br>
-                    <button onclick="window.location.href='/'" class="primary-button" data-i18n="button.back">Back to Home</button>
-                    <button onclick="resetTutorial()" data-i18n="button.tryAgain">Start Over</button>
-                </div>
+            <!-- Step 2 -->
+            <div class="screen" id="map-screen">
+                <img src="../images/ola-uber-tutorial/map.png" alt="Map and Search Destination" class="screenshot">
+                <div class="clickable-area" id="map-area" style="top:44%;left:10%;width:80%;height:10%;"></div>
+                <div class="feedback" id="map-feedback">Good! Now enter your destination.</div>
+            </div>
+            <!-- Step 3 -->
+            <div class="screen" id="destination-screen">
+                <img src="../images/ola-uber-tutorial/pickup.png" alt="Enter Destination" class="screenshot">
+                <div class="clickable-area" id="destination-area" style="top:13%;left:10%;width:80%;height:7%;"></div>
+                <div class="feedback" id="destination-feedback">Nice! Now choose your ride.</div>
+            </div>
+            <!-- Step 4 -->
+            <div class="screen" id="rides-screen">
+                <img src="../images/ola-uber-tutorial/destination.png" alt="Ride Options and Fare" class="screenshot">
+                <div class="clickable-area" id="rides-area" style="top:40%;left:10%;width:80%;height:10%;"></div>
+                <div class="feedback" id="rides-feedback">Well done! Now confirm and book.</div>
+            </div>
+            <!-- Step 5 -->
+            <div class="screen" id="pickup-screen">
+                <img src="../images/ola-uber-tutorial/book.png" alt="Pickup Location Entry" class="screenshot">
+                <div class="clickable-area" id="pickup-area" style="top:90%;left:10%;width:80%;height:8%;"></div>
+                <div class="feedback" id="pickup-feedback">Congratulations! You have booked your ride.</div>
             </div>
         </div>
+        <div class="tutorial-controls">
+            <button id="prev-button" disabled>Previous</button>
+            <button id="reset-button">Start Over</button>
+            <button id="debug-toggle">Show Clickable Areas</button>
+        </div>
+        <a href="/" class="back-link">← Back to Home</a>
     </div>
-    <script src="../js/localization.js"></script>
     <script>
+        // Tutorial state
         const tutorial = {
-            currentScreen: 'welcome-screen',
             currentStep: 1,
-            totalSteps: 5
+            totalSteps: 5,
+            expectedActions: {
+                1: 'welcome-area',
+                2: 'map-area',
+                3: 'destination-area',
+                4: 'rides-area',
+                5: 'pickup-area'
+            },
+            instructions: {
+                1: '<strong>Step 1:</strong> Tap the Ola/Uber app icon on your home screen.',
+                2: '<strong>Step 2:</strong> Set your pickup location.',
+                3: '<strong>Step 3:</strong> Enter your destination.',
+                4: '<strong>Step 4:</strong> Choose your ride.',
+                5: '<strong>Step 5:</strong> Confirm and book your ride.'
+            },
+            feedbacks: [
+                "Great! Now set your pickup location.",
+                "Good! Now enter your destination.",
+                "Nice! Now choose your ride.",
+                "Well done! Now confirm and book.",
+                "Congratulations! You have booked your ride."
+            ]
         };
+
+        // DOM elements
+        const screens = [
+            document.getElementById('welcome-screen'),
+            document.getElementById('map-screen'),
+            document.getElementById('destination-screen'),
+            document.getElementById('rides-screen'),
+            document.getElementById('pickup-screen')
+        ];
+        const feedbacks = [
+            document.getElementById('welcome-feedback'),
+            document.getElementById('map-feedback'),
+            document.getElementById('destination-feedback'),
+            document.getElementById('rides-feedback'),
+            document.getElementById('pickup-feedback')
+        ];
+        const stepInstructions = document.getElementById('step-instructions');
+        const progressDots = document.querySelectorAll('.progress-dot');
         const prevButton = document.getElementById('prev-button');
-        const taskComplete = document.getElementById('task-complete');
-        function nextStep() {
-            if (tutorial.currentStep <= tutorial.totalSteps) {
-                tutorial.currentStep++;
-                const screens = ['welcome-screen', 'map-screen', 'destination-screen', 'rides-screen', 'pickup-screen'];
-                const targetScreen = screens[tutorial.currentStep - 1];
-                transitionToScreen(targetScreen);
-                updateProgress();
-                updateButtonStates();
-                if (tutorial.currentStep > tutorial.totalSteps) {
-                    taskComplete.style.display = 'block';
-                }
+        const resetButton = document.getElementById('reset-button');
+        const debugToggle = document.getElementById('debug-toggle');
+
+        // Set up clickable areas
+        document.getElementById('welcome-area').onclick = handleAreaClick;
+        document.getElementById('map-area').onclick = handleAreaClick;
+        document.getElementById('destination-area').onclick = handleAreaClick;
+        document.getElementById('rides-area').onclick = handleAreaClick;
+        document.getElementById('pickup-area').onclick = handleAreaClick;
+
+        function handleAreaClick(e) {
+            const clickedId = e.target.id;
+            const expectedId = tutorial.expectedActions[tutorial.currentStep];
+            if (clickedId === expectedId) {
+                showFeedback(tutorial.currentStep - 1, true);
+                setTimeout(() => {
+                    if (tutorial.currentStep < tutorial.totalSteps) {
+                        goToStep(tutorial.currentStep + 1);
+                    }
+                }, 1200);
+            } else {
+                showFeedback(tutorial.currentStep - 1, false);
             }
         }
-        function previousStep() {
+
+        function showFeedback(idx, success) {
+            feedbacks.forEach(fb => fb.style.opacity = 0);
+            const fb = feedbacks[idx];
+            if (fb) {
+                fb.style.backgroundColor = success ? '#4CAF50' : '#f44336';
+                fb.textContent = success
+                    ? tutorial.feedbacks[idx]
+                    : 'Try again! Click the highlighted area.';
+                fb.style.opacity = 1;
+                setTimeout(() => { fb.style.opacity = 0; }, 1000);
+            }
+        }
+
+        function goToStep(step) {
+            tutorial.currentStep = step;
+            screens.forEach((screen, idx) => {
+                screen.classList.toggle('active', idx === step - 1);
+            });
+            stepInstructions.innerHTML = tutorial.instructions[step];
+            progressDots.forEach((dot, idx) => {
+                dot.classList.toggle('active', idx === step - 1);
+            });
+            prevButton.disabled = step === 1;
+        }
+
+        prevButton.onclick = function() {
             if (tutorial.currentStep > 1) {
-                tutorial.currentStep--;
-                const screens = ['welcome-screen', 'map-screen', 'destination-screen', 'rides-screen', 'pickup-screen'];
-                const targetScreen = screens[tutorial.currentStep - 1];
-                transitionToScreen(targetScreen);
-                updateProgress();
-                updateButtonStates();
-                taskComplete.style.display = 'none';
+                goToStep(tutorial.currentStep - 1);
             }
-        }
-        function resetTutorial() {
-            tutorial.currentScreen = 'welcome-screen';
-            tutorial.currentStep = 1;
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.add('hidden');
-            });
-            const welcomeScreen = document.getElementById('welcome-screen');
-            if (welcomeScreen) {
-                welcomeScreen.classList.remove('hidden');
-            }
-            updateProgress();
-            updateButtonStates();
-            taskComplete.style.display = 'none';
-        }
-        function transitionToScreen(screenId) {
-            const currentScreen = document.getElementById(tutorial.currentScreen);
-            if (currentScreen) {
-                currentScreen.classList.add('hidden');
-            }
-            const newScreen = document.getElementById(screenId);
-            if (newScreen) {
-                newScreen.classList.remove('hidden');
-                tutorial.currentScreen = screenId;
-            }
-        }
-        function updateProgress() {
-            const progressDots = document.querySelectorAll('.progress-dot');
-            progressDots.forEach((dot, index) => {
-                const stepNumber = index + 1;
-                if (stepNumber <= tutorial.currentStep) {
-                    dot.style.backgroundColor = '#0088cc';
-                    dot.style.border = '2px solid #0088cc';
-                    dot.style.transform = 'scale(1.2)';
-                    dot.style.boxShadow = '0 0 10px rgba(0, 136, 204, 0.3)';
-                    dot.classList.add('active');
-                } else {
-                    dot.style.backgroundColor = '#ddd';
-                    dot.style.border = '2px solid transparent';
-                    dot.style.transform = 'scale(1)';
-                    dot.style.boxShadow = 'none';
-                    dot.classList.remove('active');
-                }
-            });
-            progressDots.forEach(dot => dot.offsetHeight);
-        }
-        function updateButtonStates() {
-            prevButton.disabled = tutorial.currentStep === 1;
-            const nextButton = document.getElementById('next-button');
-            if (nextButton) {
-                nextButton.disabled = taskComplete.style.display === 'block';
-            }
-        }
-        function initTutorial() {
-            updateProgress();
-            updateButtonStates();
-        }
-        window.onload = initTutorial;
-    </script>
-    <script>
+        };
+        resetButton.onclick = function() {
+            goToStep(1);
+        };
+        debugToggle.onclick = function() {
+            document.body.classList.toggle('debug-mode');
+            debugToggle.textContent = document.body.classList.contains('debug-mode')
+                ? 'Hide Clickable Areas'
+                : 'Show Clickable Areas';
+        };
+
         // Dark mode functionality
         const darkModeToggle = document.getElementById('dark-mode-toggle');
         const body = document.body;
