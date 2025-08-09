@@ -55,6 +55,22 @@
             transition: all 0.3s;
         }
         .tutorial-controls button:disabled { background: #cccccc; color: #fff; }
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .language-selector select {
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background: #f8f8f8;
+            color: #333;
+            font-size: 14px;
+            cursor: pointer;
+        }
         .phone-container {
             border: 12px solid #333;
             border-radius: 36px;
@@ -135,15 +151,58 @@
             .container { padding: 10px 2vw; }
             .phone-container { width: 98vw; min-width: 0; }
         }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #1a1a1a;
+        }
+
+        body.dark-mode .container {
+            background: rgba(30, 30, 30, 0.95);
+        }
+
+        body.dark-mode .step-instructions {
+            background-color: #2d2d2d;
+            border-left-color: var(--primary);
+            color: #ffffff;
+        }
+
+        body.dark-mode .phone-container {
+            border-color: #444;
+            background: #333;
+        }
+
+        body.dark-mode .language-selector select {
+            background: #333;
+            color: #fff;
+            border-color: #555;
+        }
+
+        body.dark-mode .tutorial-controls button:disabled {
+            background: #444;
+            color: #888;
+        }
+
+        body.dark-mode .progress-dot {
+            background: #444;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="dark-mode-toggle">
-            <button id="dark-mode-toggle" class="theme-toggle-btn">
-                <span class="light-icon">☀️</span>
-                <span class="dark-icon">🌙</span>
-            </button>
+        <div class="nav-controls">
+            <div class="dark-mode-toggle">
+                <button id="dark-mode-toggle" class="theme-toggle-btn">
+                    <span class="light-icon">☀️</span>
+                    <span class="dark-icon">🌙</span>
+                </button>
+            </div>
+            <div class="language-selector">
+                <select id="language-select">
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी (Hindi)</option>
+                </select>
+            </div>
         </div>
         <h1 style="text-align:center;margin-bottom:18px;">Book Train Tickets</h1>
         <div class="step-instructions" id="step-instructions">
@@ -321,6 +380,70 @@
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !localStorage.getItem('theme')) {
             body.classList.add('dark-mode');
             localStorage.setItem('theme', 'dark');
+        }
+        
+
+    </script>
+    
+    <!-- Include localization script -->
+    <script src="../js/localization.js"></script>
+    <script>
+        // Initialize localization when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add data-i18n attributes to elements that need translation
+            document.querySelector('h1').setAttribute('data-i18n', 'tutorial.title');
+            
+            // Add data-i18n attributes to step instructions
+            const stepInstructions = document.querySelector('.step-instructions');
+            stepInstructions.setAttribute('data-i18n', 'step1.instruction');
+            
+            // Add data-i18n attributes to feedback messages
+            const feedbackElements = document.querySelectorAll('.feedback-message');
+            const feedbackKeys = ['welcome', 'from', 'to', 'date', 'train', 'payment'];
+            feedbackElements.forEach((feedback, index) => {
+                if (index < feedbackKeys.length) {
+                    feedback.setAttribute('data-i18n', `feedback.${feedbackKeys[index]}`);
+                }
+            });
+            
+            // Add data-i18n attribute to completion message
+            const completionMessage = document.querySelector('.completion-message');
+            if (completionMessage) {
+                completionMessage.setAttribute('data-i18n', 'completion.message');
+            }
+            
+            // Add data-i18n attribute to completion success message
+            const completionSuccess = document.querySelector('.completion-success');
+            if (completionSuccess) {
+                completionSuccess.setAttribute('data-i18n', 'completion.success');
+            }
+            
+            // Initialize localization
+            initLocalization();
+            
+            // Add event listener to language selector
+            document.getElementById('language-select').addEventListener('change', function() {
+                changeLanguage(this.value);
+            });
+        });
+        
+        // Override the changeLanguage function to work with the tutorial
+        function changeLanguage(lang) {
+            if (LANGUAGES[lang] && lang !== currentLanguage) {
+                currentLanguage = lang;
+                localStorage.setItem('language', lang);
+
+                // Update HTML lang attribute
+                document.documentElement.lang = lang;
+                document.documentElement.dir = LANGUAGES[lang].dir;
+
+                // Load translations and update the page
+                const pageName = getPageName();
+                loadTranslations(pageName);
+                
+                // Update the selected option
+                document.getElementById('language-select').value = lang;
+            }
         }
     </script>
 </body>

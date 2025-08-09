@@ -596,10 +596,8 @@ button:disabled {
 }
 
 .language-selector {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    z-index: 100;
+    z-index: 1000;
+    flex-shrink: 0;
 }
 
 .language-selector select {
@@ -623,11 +621,6 @@ button:disabled {
 @media (max-width: 600px) {
     .tutorial-grid {
         grid-template-columns: 1fr;
-    }
-
-    .language-selector {
-        top: 10px;
-        right: 10px;
     }
 }
 
@@ -710,12 +703,7 @@ body.dark-mode .about-link svg {
 }
 
 /* Dark mode toggle styles */
-.dark-mode-toggle {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 100;
-}
+/* Dark mode toggle is now part of nav-controls */
 
 .theme-toggle-btn {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -767,11 +755,6 @@ body.dark-mode .theme-toggle-btn .dark-icon {
 
 /* Responsive adjustments for dark mode toggle */
 @media (max-width: 768px) {
-    .dark-mode-toggle {
-        top: 15px;
-        left: 15px;
-    }
-    
     .theme-toggle-btn {
         width: 50px;
         height: 50px;
@@ -794,6 +777,13 @@ body.dark-mode .theme-toggle-btn .dark-icon {
     align-items: center;
     z-index: 1000;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-shrink: 0;
 }
 
 .nav-brand {
@@ -1389,6 +1379,14 @@ body.dark-mode .card-footer {
     
     .brand-text {
         font-size: 1rem;
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .nav-controls {
+        gap: 10px;
     }
     
     .modern-container {
@@ -1465,6 +1463,16 @@ body.dark-mode .card-footer {
     
     .hero-subtitle {
         font-size: 1rem;
+    }
+    
+    .brand-text {
+        max-width: 150px;
+    }
+    
+    .modern-theme-toggle {
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
     }
     
     .stats-container {
